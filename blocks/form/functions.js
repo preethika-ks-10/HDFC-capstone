@@ -56,66 +56,57 @@ function maskMobileNumber(mobileNumber) {
   return ` ${'*'.repeat(5)}${value.substring(5)}`;
 }
 
-/* timer function */
 /**
  * @param {scope} globals
  */
 function startOtpTimer(globals) {
-  debugger;
   const timerField = globals.form.otp_verification.timer;
   let seconds = 30;
- 
+
   if (!timerField) {
     return '00:30';
   }
- 
+
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
     window.otpTimerInterval = null;
   }
- 
+
   globals.functions.setProperty(timerField, {
     value: '00:30',
   });
- 
+
   window.otpTimerInterval = setInterval(() => {
     seconds -= 1;
- 
-    if (seconds >= 10) {
+
+    const timerValue = seconds >= 10 ? `00:${seconds}` : `00:0${seconds}`;
+
+    if (seconds > 0) {
       globals.functions.setProperty(timerField, {
-        value: `00:${seconds}`,
+        value: timerValue,
       });
-    } else if (seconds >= 0) {
-      globals.functions.setProperty(timerField, {
-        value: `00:0${seconds}`,
-      });
-    }
- 
-    if (seconds <= 0) {
+    } else {
       clearInterval(window.otpTimerInterval);
       window.otpTimerInterval = null;
- 
+
       globals.functions.setProperty(timerField, {
         value: 'Time expired',
       });
     }
   }, 1000);
- 
+
   return '00:30';
 }
- 
+
 /**
  * @param {scope} globals
  */
 function stopOtpTimer(globals) {
-  const timerField =globals.form.otp_verification.timer;
- 
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
     window.otpTimerInterval = null;
   }
 }
- 
 
 /**
  * @param {scope} globals
@@ -145,9 +136,9 @@ function updateLoanDetails(globals) {
     const monthlyRate = annualInterestRate / (12 * 100);
 
     emi =
-      loanAmount *
-      monthlyRate *
-      Math.pow(1 + monthlyRate, tenure) /
+      (loanAmount *
+        monthlyRate *
+        Math.pow(1 + monthlyRate, tenure)) /
       (Math.pow(1 + monthlyRate, tenure) - 1);
 
     emi = Math.round(emi);
@@ -189,13 +180,13 @@ function updateLoanDetails(globals) {
   return formattedEMI;
 }
 
-
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber,startOtpTimer, stopOtpTimer, calculateEMI,
-};
-
-
-export {
-  updateLoanDetails
+  getFullName,
+  days,
+  submitFormArrayToString,
+  maskMobileNumber,
+  startOtpTimer,
+  stopOtpTimer,
+  updateLoanDetails,
 };
