@@ -124,14 +124,25 @@ function stopOtpTimer(globals) {
  * @param {scope} globals
  */
 function updateLoanDetails(globals) {
-  const loanAmount =
-    Number(globals.form.offer.loan_amount.value || 0);
+  const loanAmountField =
+    globals.form?.offer?.loan_amount ||
+    globals.form?.loan_amount;
 
-  const tenure =
-    Number(globals.form.offer["Loan Tenure"].value || 0);
+  const tenureField =
+    globals.form?.offer?.["Loan Tenure"] ||
+    globals.form?.["Loan Tenure"];
+
+  if (!loanAmountField || !tenureField) {
+    console.log("loanAmountField:", loanAmountField);
+    console.log("tenureField:", tenureField);
+    console.log("Available form:", globals.form);
+    return "";
+  }
+
+  const loanAmount = Number(loanAmountField.value || 0);
+  const tenure = Number(tenureField.value || 0);
 
   const annualInterestRate = 10.97;
-
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
