@@ -111,35 +111,43 @@ function stopOtpTimer(globals) {
 /**
  * @param {scope} globals
  */
+function findField(obj, name) {
+  if (!obj || typeof obj !== "object") {
+    return null;
+  }
+
+  if (obj[name]) {
+    return obj[name];
+  }
+
+  for (const key in obj) {
+    const found = findField(obj[key], name);
+    if (found) {
+      return found;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * @param {scope} globals
+ */
 function updateLoanDetails(globals) {
-  const offerPanel = globals.form.offer_panel || globals.form.Offer_Panel || globals.form["Offer Panel"];
+  const loanAmountField = findField(globals.form, "loan_amount");
+  const tenureField = findField(globals.form, "Loan Tenure");
 
-  if (!offerPanel) {
-    console.log("Offer Panel not found", globals.form);
-    return "";
-  }
-
-  const offer = offerPanel.offer;
-  const display = offerPanel.display;
-
-  if (!offer || !display) {
-    console.log("offer/display not found", offerPanel);
-    return "";
-  }
-
-  const loanAmountField = offer.loan_amount;
-  const tenureField = offer["Loan Tenure"];
-
-  const loanDisplayField = display.loandisplay;
-  const emiField = display.emi;
-  const rateField = display.rate;
-  const taxField = display.tax;
+  const loanDisplayField = findField(globals.form, "loandisplay");
+  const emiField = findField(globals.form, "emi");
+  const rateField = findField(globals.form, "rate");
+  const taxField = findField(globals.form, "tax");
 
   const annualInterestRate = 10.97;
   const taxes = 4000;
 
   if (!loanAmountField || !tenureField) {
-    console.log("loan amount or tenure not found", offer);
+    console.log("Required slider fields not found");
+    console.log(globals.form);
     return "";
   }
 
@@ -160,37 +168,41 @@ function updateLoanDetails(globals) {
     emi = Math.round(emi);
   }
 
-  const formattedLoanAmount =
-    "₹" + loanAmount.toLocaleString("en-IN");
+  const formattedLoanAmount = "₹" + loanAmount.toLocaleString("en-IN");
+  const formattedEMI = "₹" + emi.toLocaleString("en-IN");
+  const formattedTaxes = "₹" + taxes.toLocaleString("en-IN");
 
-  const formattedEMI =
-    "₹" + emi.toLocaleString("en-IN");
+  if (loanDisplayField) {
+    globals.functions.setProperty(loanDisplayField, {
+      value: formattedLoanAmount,
+      text: formattedLoanAmount,
+    });
+  }
 
-  const formattedTaxes =
-    "₹" + taxes.toLocaleString("en-IN");
+  if (emiField) {
+    globals.functions.setProperty(emiField, {
+      value: formattedEMI,
+      text: formattedEMI,
+    });
+  }
 
-  globals.functions.setProperty(loanDisplayField, {
-    value: formattedLoanAmount,
-    text: formattedLoanAmount,
-  });
+  if (rateField) {
+    globals.functions.setProperty(rateField, {
+      value: annualInterestRate + "%",
+      text: annualInterestRate + "%",
+    });
+  }
 
-  globals.functions.setProperty(emiField, {
-    value: formattedEMI,
-    text: formattedEMI,
-  });
-
-  globals.functions.setProperty(rateField, {
-    value: annualInterestRate + "%",
-    text: annualInterestRate + "%",
-  });
-
-  globals.functions.setProperty(taxField, {
-    value: formattedTaxes,
-    text: formattedTaxes,
-  });
+  if (taxField) {
+    globals.functions.setProperty(taxField, {
+      value: formattedTaxes,
+      text: formattedTaxes,
+    });
+  }
 
   return formattedEMI;
 }
+
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName,
