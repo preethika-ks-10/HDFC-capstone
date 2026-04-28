@@ -112,18 +112,34 @@ function stopOtpTimer(globals) {
  * @param {scope} globals
  */
 function updateLoanDetails(globals) {
-  const loanAmountField = globals.form.offer.loan_amount;
-  const tenureField = globals.form.offer["Loan Tenure"];
+  const offerPanel = globals.form.offer_panel || globals.form.Offer_Panel || globals.form["Offer Panel"];
 
-  const loanDisplayField = globals.form.display.loandisplay;
-  const emiField = globals.form.display.emi;
-  const rateField = globals.form.display.rate;
-  const taxField = globals.form.display.tax;
+  if (!offerPanel) {
+    console.log("Offer Panel not found", globals.form);
+    return "";
+  }
+
+  const offer = offerPanel.offer;
+  const display = offerPanel.display;
+
+  if (!offer || !display) {
+    console.log("offer/display not found", offerPanel);
+    return "";
+  }
+
+  const loanAmountField = offer.loan_amount;
+  const tenureField = offer["Loan Tenure"];
+
+  const loanDisplayField = display.loandisplay;
+  const emiField = display.emi;
+  const rateField = display.rate;
+  const taxField = display.tax;
 
   const annualInterestRate = 10.97;
   const taxes = 4000;
 
   if (!loanAmountField || !tenureField) {
+    console.log("loan amount or tenure not found", offer);
     return "";
   }
 
@@ -153,37 +169,28 @@ function updateLoanDetails(globals) {
   const formattedTaxes =
     "₹" + taxes.toLocaleString("en-IN");
 
-  if (loanDisplayField) {
-    globals.functions.setProperty(loanDisplayField, {
-      value: formattedLoanAmount,
-      text: formattedLoanAmount,
-    });
-  }
+  globals.functions.setProperty(loanDisplayField, {
+    value: formattedLoanAmount,
+    text: formattedLoanAmount,
+  });
 
-  if (emiField) {
-    globals.functions.setProperty(emiField, {
-      value: formattedEMI,
-      text: formattedEMI,
-    });
-  }
+  globals.functions.setProperty(emiField, {
+    value: formattedEMI,
+    text: formattedEMI,
+  });
 
-  if (rateField) {
-    globals.functions.setProperty(rateField, {
-      value: annualInterestRate + "%",
-      text: annualInterestRate + "%",
-    });
-  }
+  globals.functions.setProperty(rateField, {
+    value: annualInterestRate + "%",
+    text: annualInterestRate + "%",
+  });
 
-  if (taxField) {
-    globals.functions.setProperty(taxField, {
-      value: formattedTaxes,
-      text: formattedTaxes,
-    });
-  }
+  globals.functions.setProperty(taxField, {
+    value: formattedTaxes,
+    text: formattedTaxes,
+  });
 
   return formattedEMI;
 }
-
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName,
