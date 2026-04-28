@@ -116,7 +116,132 @@ function stopOtpTimer(globals) {
   }
 }
  
+
+/* EMI calculation logic */
+/**
+ * @param {scope} globals
+ */
+function calculateEMI(principal, annualRate, tenureMonths) {
+
+  const monthlyRate = annualRate / (12 * 100);
+
+  if (!principal || !tenureMonths) {
+    return 0;
+  }
+
+  const emi =
+    principal *
+    monthlyRate *
+    Math.pow(1 + monthlyRate, tenureMonths) /
+    (Math.pow(1 + monthlyRate, tenureMonths) - 1);
+
+  return Math.round(emi);
+}
+
+
+/* Format currency */
+
+function formatINR(amount) {
+  return "₹" + Number(amount).toLocaleString("en-IN");
+}
+
+
+/* Main update function */
+
+function updateLoanDetails(globals) {
+
+  /* INPUT fields */
+
+  const loanAmountField =
+    globals.form.offer.loan_amount;
+
+  const tenureField =
+    globals.form.offer.loan_tenure;
+
+
+  /* OUTPUT fields */
+
+  const offerAmountField =
+    globals.form.display.avail_express_loan_of;
+
+  const emiField =
+    globals.form.display.emi_amount;
+
+  const roiField =
+    globals.form.display.rate_of_interest;
+
+  const taxesField =
+    globals.form.display.taxes;
+
+
+  /* Get values */
+
+  const loanAmount =
+    Number(loanAmountField.value || 0);
+
+  const tenure =
+    Number(tenureField.value || 0);
+
+
+  /* Fixed values */
+
+  const annualInterestRate = 10.97;
+
+  const taxes = 4000;
+
+
+  /* EMI Calculation */
+
+  const emi =
+    calculateEMI(
+      loanAmount,
+      annualInterestRate,
+      tenure
+    );
+
+
+  /* Update UI */
+
+  globals.functions.setProperty(
+    offerAmountField,
+    {
+      value: formatINR(loanAmount)
+    }
+  );
+
+
+  globals.functions.setProperty(
+    emiField,
+    {
+      value: formatINR(emi)
+    }
+  );
+
+
+  globals.functions.setProperty(
+    roiField,
+    {
+      value: annualInterestRate + "%"
+    }
+  );
+
+
+  globals.functions.setProperty(
+    taxesField,
+    {
+      value: formatINR(taxes)
+    }
+  );
+
+}
+
+
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber,startOtpTimer, stopOtpTimer,
+  getFullName, days, submitFormArrayToString, maskMobileNumber,startOtpTimer, stopOtpTimer, calculateEMI,
+};
+
+
+export {
+  updateLoanDetails
 };
