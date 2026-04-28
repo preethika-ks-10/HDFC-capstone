@@ -111,43 +111,84 @@ function stopOtpTimer(globals) {
 /**
  * @param {scope} globals
  */
-function findField(obj, name) {
+
+function findField(obj, fieldName, visited) {
   if (!obj || typeof obj !== "object") {
     return null;
   }
 
-  if (obj[name]) {
-    return obj[name];
+  if (visited.has(obj)) {
+    return null;
+  }
+
+  visited.add(obj);
+
+  if (obj[fieldName]) {
+    return obj[fieldName];
+  }
+
+  if (
+    obj.name === fieldName ||
+    obj.id === fieldName ||
+    obj._name === fieldName
+  ) {
+    return obj;
   }
 
   for (const key in obj) {
-    const found = findField(obj[key], name);
-    if (found) {
-      return found;
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const found = findField(obj[key], fieldName, visited);
+      if (found) {
+        return found;
+      }
     }
   }
 
   return null;
 }
 
-/**
- * @param {scope} globals
- */
 function updateLoanDetails(globals) {
-  const loanAmountField = findField(globals.form, "loan_amount");
-  const tenureField = findField(globals.form, "Loan Tenure");
+  const loanAmountField = findField(
+    globals.form,
+    "loan_amount",
+    new WeakSet()
+  );
 
-  const loanDisplayField = findField(globals.form, "loandisplay");
-  const emiField = findField(globals.form, "emi");
-  const rateField = findField(globals.form, "rate");
-  const taxField = findField(globals.form, "tax");
+  const tenureField = findField(
+    globals.form,
+    "Loan Tenure",
+    new WeakSet()
+  );
+
+  const loanDisplayField = findField(
+    globals.form,
+    "loandisplay",
+    new WeakSet()
+  );
+
+  const emiField = findField(
+    globals.form,
+    "emi",
+    new WeakSet()
+  );
+
+  const rateField = findField(
+    globals.form,
+    "rate",
+    new WeakSet()
+  );
+
+  const taxField = findField(
+    globals.form,
+    "tax",
+    new WeakSet()
+  );
 
   const annualInterestRate = 10.97;
   const taxes = 4000;
 
   if (!loanAmountField || !tenureField) {
-    console.log("Required slider fields not found");
-    console.log(globals.form);
+    console.log("Loan amount or tenure field not found");
     return "";
   }
 
@@ -168,9 +209,14 @@ function updateLoanDetails(globals) {
     emi = Math.round(emi);
   }
 
-  const formattedLoanAmount = "₹" + loanAmount.toLocaleString("en-IN");
-  const formattedEMI = "₹" + emi.toLocaleString("en-IN");
-  const formattedTaxes = "₹" + taxes.toLocaleString("en-IN");
+  const formattedLoanAmount =
+    "₹" + loanAmount.toLocaleString("en-IN");
+
+  const formattedEMI =
+    "₹" + emi.toLocaleString("en-IN");
+
+  const formattedTaxes =
+    "₹" + taxes.toLocaleString("en-IN");
 
   if (loanDisplayField) {
     globals.functions.setProperty(loanDisplayField, {
@@ -200,10 +246,11 @@ function updateLoanDetails(globals) {
     });
   }
 
+  console.log("EMI calculated:", formattedEMI);
+
   return formattedEMI;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export {
   getFullName,
   days,
