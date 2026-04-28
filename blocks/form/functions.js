@@ -117,122 +117,76 @@ function stopOtpTimer(globals) {
 }
  
 
-/* EMI calculation logic */
 /**
  * @param {scope} globals
  */
-function calculateEMI(principal, annualRate, tenureMonths) {
-
-  const monthlyRate = annualRate / (12 * 100);
-
-  if (!principal || !tenureMonths) {
-    return 0;
-  }
-
-  const emi =
-    principal *
-    monthlyRate *
-    Math.pow(1 + monthlyRate, tenureMonths) /
-    (Math.pow(1 + monthlyRate, tenureMonths) - 1);
-
-  return Math.round(emi);
-}
-
-
-/* Format currency */
-
-function formatINR(amount) {
-  return "₹" + Number(amount).toLocaleString("en-IN");
-}
-
-
-/* Main update function */
-
 function updateLoanDetails(globals) {
+  const loanAmountField = globals.form.offer.loan_amount;
+  const tenureField = globals.form.offer.loan_tenure;
 
-  /* INPUT fields */
-
-  const loanAmountField =
-    globals.form.offer.loan_amount;
-
-  const tenureField =
-    globals.form.offer.loan_tenure;
-
-
-  /* OUTPUT fields */
-
-  const offerAmountField =
-    globals.form.display.avail_express_loan_of;
-
-  const emiField =
-    globals.form.display.emi_amount;
-
-  const roiField =
-    globals.form.display.rate_of_interest;
-
-  const taxesField =
-    globals.form.display.taxes;
-
-
-  /* Get values */
-
-  const loanAmount =
-    Number(loanAmountField.value || 0);
-
-  const tenure =
-    Number(tenureField.value || 0);
-
-
-  /* Fixed values */
+  const offerAmountField = globals.form.display.avail_express_loan_of;
+  const emiField = globals.form.display.emi_amount;
+  const roiField = globals.form.display.rate_of_interest;
+  const taxesField = globals.form.display.taxes;
 
   const annualInterestRate = 10.97;
-
   const taxes = 4000;
 
+  if (!loanAmountField || !tenureField) {
+    return '';
+  }
 
-  /* EMI Calculation */
+  const loanAmount = Number(loanAmountField.value || 0);
+  const tenure = Number(tenureField.value || 0);
 
-  const emi =
-    calculateEMI(
-      loanAmount,
-      annualInterestRate,
-      tenure
-    );
+  let emi = 0;
 
+  if (loanAmount > 0 && tenure > 0) {
+    const monthlyRate = annualInterestRate / (12 * 100);
 
-  /* Update UI */
+    emi =
+      loanAmount *
+      monthlyRate *
+      Math.pow(1 + monthlyRate, tenure) /
+      (Math.pow(1 + monthlyRate, tenure) - 1);
 
-  globals.functions.setProperty(
-    offerAmountField,
-    {
-      value: formatINR(loanAmount)
-    }
-  );
+    emi = Math.round(emi);
+  }
 
+  const formattedLoanAmount =
+    '₹' + Number(loanAmount).toLocaleString('en-IN');
 
-  globals.functions.setProperty(
-    emiField,
-    {
-      value: formatINR(emi)
-    }
-  );
+  const formattedEMI =
+    '₹' + Number(emi).toLocaleString('en-IN');
 
+  const formattedTaxes =
+    '₹' + Number(taxes).toLocaleString('en-IN');
 
-  globals.functions.setProperty(
-    roiField,
-    {
-      value: annualInterestRate + "%"
-    }
-  );
+  if (offerAmountField) {
+    globals.functions.setProperty(offerAmountField, {
+      value: formattedLoanAmount,
+    });
+  }
 
+  if (emiField) {
+    globals.functions.setProperty(emiField, {
+      value: formattedEMI,
+    });
+  }
 
-  globals.functions.setProperty(
-    taxesField,
-    {
-      value: formatINR(taxes)
-    }
-  );
+  if (roiField) {
+    globals.functions.setProperty(roiField, {
+      value: annualInterestRate + '%',
+    });
+  }
 
+  if (taxesField) {
+    globals.functions.setProperty(taxesField, {
+      value: formattedTaxes,
+    });
+  }
+
+  return formattedEMI;
 }
 
 
