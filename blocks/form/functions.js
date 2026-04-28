@@ -98,46 +98,9 @@ function startOtpTimer(globals) {
   return '00:30';
 }
 /*883wr7t4*/
-/**
- * @param {scope} globals
- */
-function stopOtpTimer(globals) {
-  if (window.otpTimerInterval) {
-    clearInterval(window.otpTimerInterval);
-    window.otpTimerInterval = null;
-  }
-}
-/*123445*/
-/**
- * @param {scope} globals
- */
 function updateLoanDetails(globals) {
-
-  const loanAmount =
-    Number(globals.form.offer.loan_amount.value || 0);
-
-  const tenure =
-    Number(globals.form.offer["Loan Tenure"].value || 0);
-
-  const annualInterestRate = 10.97;
-
-  let emi = 0;
-
-  if (loanAmount > 0 && tenure > 0) {
-
-    const monthlyRate =
-      annualInterestRate / (12 * 100);
-
-    emi =
-      (loanAmount *
-        monthlyRate *
-        Math.pow(1 + monthlyRate, tenure)) /
-      (Math.pow(1 + monthlyRate, tenure) - 1);
-
-    emi = Math.round(emi);
-  }
-
-  return "₹" + emi.toLocaleString("en-IN");
+  console.log("updateLoanDetails triggered");
+  return "₹25,128";
 }
 
 export {
