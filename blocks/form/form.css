@@ -1391,6 +1391,190 @@ main .form form select[multiple] {
   }
 }
 
+/* =====================================================
+   SAFE OTP VERIFICATION CSS
+   Does not harm OTP visibility
+===================================================== */
+
+#panelcontainer-1f8d0ea887,
+.field-otp-verification {
+  background: #fff !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+#panelcontainer-1f8d0ea887 > legend.field-label {
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+  color: #38465b !important;
+  font-size: 14px !important;
+  line-height: 1.3 !important;
+  font-weight: 700 !important;
+}
+
+#text-2b11a11fea,
+.field-otp-instructions {
+  margin: 0 0 14px 0 !important;
+}
+
+#text-2b11a11fea p,
+.field-otp-instructions p {
+  margin: 0 !important;
+  color: #4f5d73 !important;
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+}
+
+#text-2b11a11fea a,
+.field-otp-instructions a {
+  color: #4367e0 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+}
+
+/* OTP wrapper */
+.field-otp-code,
+.number-wrapper.field-otp-code {
+  position: relative !important;
+  margin-bottom: 10px !important;
+}
+
+/* OTP input - visible text */
+#numberinput-a53d974bd5,
+.field-otp-code input,
+.field-otp-code input[type="number"],
+.field-otp-code input[type="text"],
+.number-wrapper.field-otp-code input {
+  width: 100% !important;
+  height: 38px !important;
+  border: 1px solid #d9e0ec !important;
+  border-radius: 8px !important;
+  background-color: #fff !important;
+  box-shadow: none !important;
+  outline: none !important;
+
+  color: #38465b !important;
+  -webkit-text-fill-color: #38465b !important;
+  opacity: 1 !important;
+
+  caret-color: #38465b !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: 10px !important;
+
+  padding: 0 44px 0 16px !important;
+  box-sizing: border-box !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+
+  position: relative !important;
+  z-index: 2 !important;
+
+  -moz-appearance: textfield !important;
+}
+
+/* Remove number arrows */
+#numberinput-a53d974bd5::-webkit-outer-spin-button,
+#numberinput-a53d974bd5::-webkit-inner-spin-button,
+.field-otp-code input::-webkit-outer-spin-button,
+.field-otp-code input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+/* Important: disable fake overlays that may hide OTP */
+.field-otp-code::before,
+.field-otp-code::after,
+.number-wrapper.field-otp-code::before,
+.number-wrapper.field-otp-code::after,
+.number-wrapper.field-otp-code input::before,
+.number-wrapper.field-otp-code input::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Optional eye icon as background only, not overlay */
+.number-wrapper.field-otp-code {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237b8798' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M17.94 17.94A10.94 10.94 0 0 1 12 20C7 20 2.73 16.89 1 12c.92-2.6 2.62-4.77 4.83-6.22'/><path d='M9.9 4.24A10.94 10.94 0 0 1 12 4c5 0 9.27 3.11 11 8a11.05 11.05 0 0 1-2.17 3.32'/><path d='M1 1l22 22'/><path d='M9.88 9.88A3 3 0 1 0 14.12 14.12'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 16px 16px !important;
+}
+
+/* Meta row */
+#text-10a534d379,
+#text-5f90985ddb,
+.field-otp-meta-left,
+.field-otp-meta-right {
+  margin-top: 2px !important;
+}
+
+#text-10a534d379 p,
+#text-5f90985ddb p,
+.field-otp-meta-left p,
+.field-otp-meta-right p {
+  margin: 0 !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  font-weight: 600 !important;
+  color: #6b7280 !important;
+}
+
+#text-10a534d379 {
+  text-align: left !important;
+}
+
+#text-5f90985ddb {
+  text-align: right !important;
+}
+
+/* Submit button */
+#submit-b01a98643b,
+.field-otp-submit {
+  margin-top: 12px !important;
+}
+
+#submit-b01a98643b button,
+#submit-b01a98643b .button,
+.field-otp-submit button {
+  min-width: 170px !important;
+  height: 42px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: #b8c6ff !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  padding: 0 18px !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+}
+
+#submit-b01a98643b button::after,
+#submit-b01a98643b .button::after,
+.field-otp-submit button::after {
+  content: "›" !important;
+  display: inline-block !important;
+  margin-left: 8px !important;
+  font-size: 15px !important;
+  vertical-align: middle !important;
+}
+
+#submit-b01a98643b button:disabled,
+#submit-b01a98643b .button:disabled,
+.field-otp-submit button:disabled {
+  background: #b8c6ff !important;
+  color: #eef2ff !important;
+  cursor: not-allowed !important;
+}
+
+#numberinput-a53d974bd5:focus,
+.field-otp-code input:focus {
+  border-color: #8ea2ff !important;
+}
 
 /* MAIN OFFER PANEL */
 #panelcontainer-80d865930c {
