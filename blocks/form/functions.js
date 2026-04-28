@@ -112,13 +112,24 @@ function stopOtpTimer(globals) {
  * @param {scope} globals
  */
 function updateLoanDetails(globals) {
-  const loanAmountField = globals.form.offer.loan_amount;
-  const tenureField = globals.form.offer.loan_tenure;
 
-  const offerAmountField = globals.form.display.avail_express_loan_of;
-  const emiField = globals.form.display.emi_amount;
-  const roiField = globals.form.display.rate_of_interest;
-  const taxesField = globals.form.display.taxes;
+  const loanAmountField =
+    globals.form.offer.loan_amount;
+
+  const tenureField =
+    globals.form.offer.loan_tenure;
+
+  const offerAmountField =
+    globals.form.display.avail_express_loan_of;
+
+  const emiField =
+    globals.form.display.emi_amount;
+
+  const roiField =
+    globals.form.display.rate_of_interest;
+
+  const taxesField =
+    globals.form.display.taxes;
 
   const annualInterestRate = 10.97;
   const taxes = 4000;
@@ -127,13 +138,18 @@ function updateLoanDetails(globals) {
     return '';
   }
 
-  const loanAmount = Number(loanAmountField.value || 0);
-  const tenure = Number(tenureField.value || 0);
+  const loanAmount =
+    Number(loanAmountField.value || 0);
+
+  const tenure =
+    Number(tenureField.value || 0);
 
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
-    const monthlyRate = annualInterestRate / (12 * 100);
+
+    const monthlyRate =
+      annualInterestRate / (12 * 100);
 
     emi =
       (loanAmount *
@@ -145,36 +161,42 @@ function updateLoanDetails(globals) {
   }
 
   const formattedLoanAmount =
-    '₹' + Number(loanAmount).toLocaleString('en-IN');
+    '₹' + loanAmount.toLocaleString('en-IN');
 
   const formattedEMI =
-    '₹' + Number(emi).toLocaleString('en-IN');
+    '₹' + emi.toLocaleString('en-IN');
 
   const formattedTaxes =
-    '₹' + Number(taxes).toLocaleString('en-IN');
+    '₹' + taxes.toLocaleString('en-IN');
+
+  /* 🔥 IMPORTANT — using TEXT not VALUE */
 
   if (offerAmountField) {
-    globals.functions.setProperty(offerAmountField, {
-      value: formattedLoanAmount,
-    });
+    globals.functions.setProperty(
+      offerAmountField,
+      { text: formattedLoanAmount }
+    );
   }
 
   if (emiField) {
-    globals.functions.setProperty(emiField, {
-      value: formattedEMI,
-    });
+    globals.functions.setProperty(
+      emiField,
+      { text: formattedEMI }
+    );
   }
 
   if (roiField) {
-    globals.functions.setProperty(roiField, {
-      value: annualInterestRate + '%',
-    });
+    globals.functions.setProperty(
+      roiField,
+      { text: annualInterestRate + '%' }
+    );
   }
 
   if (taxesField) {
-    globals.functions.setProperty(taxesField, {
-      value: formattedTaxes,
-    });
+    globals.functions.setProperty(
+      taxesField,
+      { text: formattedTaxes }
+    );
   }
 
   return formattedEMI;
