@@ -124,23 +124,25 @@ function stopOtpTimer(globals) {
  * @param {scope} globals
  */
 function updateLoanDetails(globals) {
+
   const data = globals.functions.exportData();
 
+  // Loan amount comes in Lakhs (ex: 6 → 6L)
   const loanAmount =
     Number(data.loan_amount || 0) * 100000;
 
-  const rawTenure =
-    Number(data["Loan Tenure"] || 0);
-
+  // Tenure slider index → months
   const tenure =
-    rawTenure * 6 - 6;
+    (Number(data["Loan Tenure"] || 0) * 6) - 6;
 
   const annualInterestRate = 10.97;
 
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
-    const monthlyRate = annualInterestRate / (12 * 100);
+
+    const monthlyRate =
+      annualInterestRate / (12 * 100);
 
     emi =
       (loanAmount *
