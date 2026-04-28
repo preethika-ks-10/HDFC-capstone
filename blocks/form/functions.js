@@ -97,7 +97,7 @@ function startOtpTimer(globals) {
 
   return '00:30';
 }
-
+/*883wr7t4*/
 /**
  * @param {scope} globals
  */
@@ -112,6 +112,7 @@ function stopOtpTimer(globals) {
  * @param {scope} globals
  */
 function updateLoanDetails(globals) {
+
   const loanAmount =
     Number(globals.form.offer.loan_amount.value || 0);
 
@@ -123,7 +124,9 @@ function updateLoanDetails(globals) {
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
-    const monthlyRate = annualInterestRate / (12 * 100);
+
+    const monthlyRate =
+      annualInterestRate / (12 * 100);
 
     emi =
       (loanAmount *
@@ -137,21 +140,6 @@ function updateLoanDetails(globals) {
   return "₹" + emi.toLocaleString("en-IN");
 }
 
-function updateLoanDisplay(globals) {
-  const loanAmount =
-    Number(globals.form.offer.loan_amount.value || 0);
-
-  return "₹" + loanAmount.toLocaleString("en-IN");
-}
-
-function getRate() {
-  return "10.97%";
-}
-
-function getTax() {
-  return "₹4,000";
-}
-
 export {
   getFullName,
   days,
@@ -160,7 +148,4 @@ export {
   startOtpTimer,
   stopOtpTimer,
   updateLoanDetails,
-  updateLoanDisplay,
-  getRate,
-  getTax,
 };
