@@ -126,14 +126,8 @@ function stopOtpTimer(globals) {
 function updateLoanDetails(globals) {
   const data = globals.functions.exportData();
 
-  console.log("exportData:", data);
-
-  const loanAmount =
-    Number(data.loan_amount || data["loan_amount"] || 0);
-
-  const tenure =
-    Number(data["Loan Tenure"] || data.loan_tenure || 0);
-
+  const loanAmount = Number(data.loan_amount || 0) * 100000;
+  const tenure = Number(data["Loan Tenure"] || 0);
   const annualInterestRate = 10.97;
 
   let emi = 0;
@@ -142,15 +136,28 @@ function updateLoanDetails(globals) {
     const monthlyRate = annualInterestRate / (12 * 100);
 
     emi =
-      (loanAmount *
-        monthlyRate *
-        Math.pow(1 + monthlyRate, tenure)) /
+      (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
       (Math.pow(1 + monthlyRate, tenure) - 1);
 
     emi = Math.round(emi);
   }
 
   return "₹" + emi.toLocaleString("en-IN");
+}
+
+function updateLoanDisplay(globals) {
+  const data = globals.functions.exportData();
+  const loanAmount = Number(data.loan_amount || 0) * 100000;
+
+  return "₹" + loanAmount.toLocaleString("en-IN");
+}
+
+function getRate() {
+  return "10.97%";
+}
+
+function getTax() {
+  return "₹4,000";
 }
 
 export {
