@@ -49,3 +49,150 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 .range-widget-wrapper.decorated .range-max {
     float: right;
 }
+
+/* range calculation*/
+
+/* RANGE SECTION */
+#panelcontainer-623bb13491 {
+  width: 760px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent;
+  font-family: Arial, sans-serif;
+}
+
+/* each range field */
+#panelcontainer-623bb13491 .field-loan-amount,
+#panelcontainer-623bb13491 .field-loan-tenure {
+  width: 100% !important;
+  position: relative;
+  margin-bottom: 55px !important;
+  padding: 0 !important;
+}
+
+/* labels */
+#panelcontainer-623bb13491 .field-label {
+  display: block;
+  font-size: 20px !important;
+  font-weight: 700;
+  color: #263449;
+  margin-bottom: 42px !important;
+}
+
+/* range wrapper */
+#panelcontainer-623bb13491 .range-widget-wrapper {
+  position: relative;
+  width: 100%;
+  height: 45px;
+}
+
+/* value box */
+#panelcontainer-623bb13491 .range-bubble {
+  position: absolute !important;
+  right: 0 !important;
+  left: auto !important;
+  top: -95px !important;
+
+  min-width: 150px;
+  height: 65px;
+  line-height: 65px;
+
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* orange track */
+#panelcontainer-623bb13491 input[type="range"] {
+  width: 100% !important;
+  height: 8px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background: #ff9824 !important;
+  background-image: linear-gradient(#ff9824, #ff9824) !important;
+  border-radius: 20px !important;
+  outline: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* chrome track */
+#panelcontainer-623bb13491 input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px !important;
+  background: #ff9824 !important;
+  border-radius: 20px !important;
+}
+
+/* firefox track */
+#panelcontainer-623bb13491 input[type="range"]::-moz-range-track {
+  height: 8px !important;
+  background: #ff9824 !important;
+  border-radius: 20px !important;
+}
+
+/* blue knob */
+#panelcontainer-623bb13491 input[type="range"]::-webkit-slider-thumb {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 32px !important;
+  height: 32px !important;
+  background: #2649d8 !important;
+  border: 4px solid #fff !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  margin-top: -12px !important;
+  cursor: pointer;
+}
+
+#panelcontainer-623bb13491 input[type="range"]::-moz-range-thumb {
+  width: 32px !important;
+  height: 32px !important;
+  background: #2649d8 !important;
+  border: 4px solid #fff !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+/* min/max labels */
+#panelcontainer-623bb13491 .range-min,
+#panelcontainer-623bb13491 .range-max {
+  position: absolute;
+  top: 28px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+#panelcontainer-623bb13491 .range-min {
+  left: 0;
+}
+
+#panelcontainer-623bb13491 .range-max {
+  right: 0;
+}
+
+/* tick marks */
+#panelcontainer-623bb13491 .range-ticks {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+#panelcontainer-623bb13491 .range-ticks span {
+  width: 1px;
+  height: 14px;
+  background: rgba(255,255,255,0.55);
+  transform: translateY(-3px);
+}

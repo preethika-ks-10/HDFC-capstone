@@ -58,3 +58,281 @@ main .form fieldset.accordion  fieldset.accordion-collapse {
 main .form fieldset.accordion {
     row-gap: 0;
 }
+
+
+/* HDFC CAPSTONE */
+/* =========================
+   REVIEW DETAILS - FINAL CSS
+========================= */
+
+/* CARD */
+.field-loan-details,
+.field-personal-details {
+  background: #ffffff !important;
+  border: 1px solid #e7ebf5 !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  margin: 0 0 22px 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  position: relative !important;
+}
+
+/* HEADER */
+.field-loan-details > legend,
+.field-personal-details > legend,
+.field-loan-details > .field-label,
+.field-personal-details > .field-label {
+  background: #eef3ff !important;
+  color: #2f3443 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  min-height: 48px !important;
+  line-height: 48px !important;
+  padding: 0 52px 0 46px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  display: block !important;
+  position: relative !important;
+  visibility: visible !important;
+}
+
+/* REMOVE OLD CUSTOM ARROWS */
+.field-loan-details > legend::after,
+.field-personal-details > legend::after,
+.field-loan-details > .field-label::after,
+.field-personal-details > .field-label::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 20px !important;
+  top: 50% !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-left: 2px solid #5f7ae8 !important;
+  border-top: 2px solid #5f7ae8 !important;
+  transform: translateY(-50%) rotate(45deg) !important;
+  display: block !important;
+}
+
+/* LEFT HEADER ICON - LOAN */
+.field-loan-details > legend::before,
+.field-loan-details > .field-label::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 18px !important;
+  top: 50% !important;
+  width: 15px !important;
+  height: 15px !important;
+  transform: translateY(-50%) !important;
+  background: no-repeat center / contain
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236381f3' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='3' width='12' height='18' rx='2'/><path d='M9 8h6M9 12h6M12 16h.01'/></svg>") !important;
+}
+
+/* LEFT HEADER ICON - PERSONAL */
+.field-personal-details > legend::before,
+.field-personal-details > .field-label::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 18px !important;
+  top: 50% !important;
+  width: 15px !important;
+  height: 15px !important;
+  transform: translateY(-50%) !important;
+  background: no-repeat center / contain
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236381f3' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='18' height='18' rx='3'/><circle cx='12' cy='10' r='3.2'/><path d='M7.8 18c1.15-2.2 2.74-3.2 4.2-3.2S15.05 15.8 16.2 18'/></svg>") !important;
+}
+
+/* HIDE ALL FRAMEWORK / EXISTING RIGHT ARROWS */
+.field-loan-details > legend i,
+.field-personal-details > legend i,
+.field-loan-details > .field-label i,
+.field-personal-details > .field-label i,
+.field-loan-details > legend svg,
+.field-personal-details > legend svg,
+.field-loan-details > .field-label svg,
+.field-personal-details > .field-label svg,
+.field-loan-details .accordion-icon,
+.field-personal-details .accordion-icon,
+.field-loan-details .toggle-icon,
+.field-personal-details .toggle-icon,
+.field-loan-details .expand-icon,
+.field-personal-details .expand-icon,
+.field-loan-details .collapse-icon,
+.field-personal-details .collapse-icon,
+.field-loan-details .icon-arrow,
+.field-personal-details .icon-arrow,
+.field-loan-details .chevron,
+.field-personal-details .chevron,
+.field-loan-details [class*="arrow"],
+.field-personal-details [class*="arrow"],
+.field-loan-details [class*="chevron"],
+.field-personal-details [class*="chevron"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* BODY */
+.field-loan-details .text-wrapper,
+.field-personal-details .text-wrapper,
+.field-loan-details .field-wrapper,
+.field-personal-details .field-wrapper {
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+}
+
+/* FIELD BLOCKS */
+.field-loan-details .text-wrapper,
+.field-personal-details .text-wrapper {
+  position: relative !important;
+  padding: 16px 18px 14px 18px !important;
+  min-height: 74px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: #ffffff !important;
+}
+
+/* BLUE VERTICAL MARKER */
+.field-loan-details .text-wrapper::before,
+.field-personal-details .text-wrapper::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 10px !important;
+  top: 19px !important;
+  width: 2px !important;
+  height: 31px !important;
+  background: #8ea6f4 !important;
+  border-radius: 2px !important;
+}
+
+/* LABELS */
+.field-loan-details label,
+.field-personal-details label {
+  display: block !important;
+  margin: 0 0 5px 0 !important;
+  font-size: 10px !important;
+  line-height: 1.25 !important;
+  font-weight: 500 !important;
+  color: #8b93a5 !important;
+}
+
+/* VALUES */
+.field-loan-details input[type="text"],
+.field-loan-details input[type="number"],
+.field-loan-details input[type="tel"],
+.field-loan-details input[type="email"],
+.field-loan-details input[type="date"],
+.field-loan-details textarea,
+.field-loan-details select,
+.field-personal-details input[type="text"],
+.field-personal-details input[type="number"],
+.field-personal-details input[type="tel"],
+.field-personal-details input[type="email"],
+.field-personal-details input[type="date"],
+.field-personal-details textarea,
+.field-personal-details select {
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #2f3443 !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  font-weight: 700 !important;
+  height: auto !important;
+  min-height: auto !important;
+}
+
+/* HIDE PLACEHOLDERS */
+.field-loan-details input::placeholder,
+.field-personal-details input::placeholder,
+.field-loan-details textarea::placeholder,
+.field-personal-details textarea::placeholder {
+  color: transparent !important;
+}
+
+/* LINKS */
+.field-loan-details a,
+.field-personal-details a {
+  color: #4f6fd8 !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+}
+
+.field-loan-details a:hover,
+.field-personal-details a:hover {
+  text-decoration: underline !important;
+}
+
+/* PERSONAL DETAIL SEPARATORS */
+.field-personal-details .field-current-address,
+.field-personal-details .field-address,
+.field-personal-details .field-residence-type {
+  border-top: 1px dashed #e8ecf5 !important;
+}
+
+.field-personal-details .field-current-address,
+.field-personal-details .field-address {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.field-personal-details .field-residence-type {
+  width: 25% !important;
+}
+
+/* KEEP EXISTING GRID */
+.field-loan-details,
+.field-personal-details {
+  display: block !important;
+}
+
+.field-loan-details .col-3,
+.field-personal-details .col-3,
+.field-loan-details [class*="col-"],
+.field-personal-details [class*="col-"] {
+  float: left;
+}
+
+.field-loan-details::after,
+.field-personal-details::after {
+  content: "" !important;
+  display: block !important;
+  clear: both !important;
+}
+
+/* CLEAN EXTRA ELEMENTS */
+.field-loan-details hr,
+.field-personal-details hr,
+.field-loan-details .separator,
+.field-personal-details .separator,
+.field-loan-details .help-text,
+.field-personal-details .help-text,
+.field-loan-details .error-message,
+.field-personal-details .error-message {
+  display: none !important;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .field-loan-details > legend,
+  .field-personal-details > legend,
+  .field-loan-details > .field-label,
+  .field-personal-details > .field-label {
+    padding: 0 44px 0 42px !important;
+  }
+
+  .field-loan-details .text-wrapper,
+  .field-personal-details .text-wrapper {
+    padding: 14px 14px 12px 18px !important;
+  }
+
+  .field-personal-details .field-current-address,
+  .field-personal-details .field-address,
+  .field-personal-details .field-residence-type {
+    width: 100% !important;
+  }
+}
