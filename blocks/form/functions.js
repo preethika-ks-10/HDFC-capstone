@@ -107,93 +107,18 @@ function stopOtpTimer(globals) {
     window.otpTimerInterval = null;
   }
 }
-
+/*123445*/
 /**
  * @param {scope} globals
  */
-
-function findField(obj, fieldName, visited) {
-  if (!obj || typeof obj !== "object") {
-    return null;
-  }
-
-  if (visited.has(obj)) {
-    return null;
-  }
-
-  visited.add(obj);
-
-  if (obj[fieldName]) {
-    return obj[fieldName];
-  }
-
-  if (
-    obj.name === fieldName ||
-    obj.id === fieldName ||
-    obj._name === fieldName
-  ) {
-    return obj;
-  }
-
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      const found = findField(obj[key], fieldName, visited);
-      if (found) {
-        return found;
-      }
-    }
-  }
-
-  return null;
-}
-
 function updateLoanDetails(globals) {
-  const loanAmountField = findField(
-    globals.form,
-    "loan_amount",
-    new WeakSet()
-  );
+  const loanAmount =
+    Number(globals.form.offer.loan_amount.value || 0);
 
-  const tenureField = findField(
-    globals.form,
-    "Loan Tenure",
-    new WeakSet()
-  );
-
-  const loanDisplayField = findField(
-    globals.form,
-    "loandisplay",
-    new WeakSet()
-  );
-
-  const emiField = findField(
-    globals.form,
-    "emi",
-    new WeakSet()
-  );
-
-  const rateField = findField(
-    globals.form,
-    "rate",
-    new WeakSet()
-  );
-
-  const taxField = findField(
-    globals.form,
-    "tax",
-    new WeakSet()
-  );
+  const tenure =
+    Number(globals.form.offer["Loan Tenure"].value || 0);
 
   const annualInterestRate = 10.97;
-  const taxes = 4000;
-
-  if (!loanAmountField || !tenureField) {
-    console.log("Loan amount or tenure field not found");
-    return "";
-  }
-
-  const loanAmount = Number(loanAmountField.value || 0);
-  const tenure = Number(tenureField.value || 0);
 
   let emi = 0;
 
@@ -209,46 +134,22 @@ function updateLoanDetails(globals) {
     emi = Math.round(emi);
   }
 
-  const formattedLoanAmount =
-    "₹" + loanAmount.toLocaleString("en-IN");
+  return "₹" + emi.toLocaleString("en-IN");
+}
 
-  const formattedEMI =
-    "₹" + emi.toLocaleString("en-IN");
+function updateLoanDisplay(globals) {
+  const loanAmount =
+    Number(globals.form.offer.loan_amount.value || 0);
 
-  const formattedTaxes =
-    "₹" + taxes.toLocaleString("en-IN");
+  return "₹" + loanAmount.toLocaleString("en-IN");
+}
 
-  if (loanDisplayField) {
-    globals.functions.setProperty(loanDisplayField, {
-      value: formattedLoanAmount,
-      text: formattedLoanAmount,
-    });
-  }
+function getRate() {
+  return "10.97%";
+}
 
-  if (emiField) {
-    globals.functions.setProperty(emiField, {
-      value: formattedEMI,
-      text: formattedEMI,
-    });
-  }
-
-  if (rateField) {
-    globals.functions.setProperty(rateField, {
-      value: annualInterestRate + "%",
-      text: annualInterestRate + "%",
-    });
-  }
-
-  if (taxField) {
-    globals.functions.setProperty(taxField, {
-      value: formattedTaxes,
-      text: formattedTaxes,
-    });
-  }
-
-  console.log("EMI calculated:", formattedEMI);
-
-  return formattedEMI;
+function getTax() {
+  return "₹4,000";
 }
 
 export {
@@ -259,4 +160,7 @@ export {
   startOtpTimer,
   stopOtpTimer,
   updateLoanDetails,
+  updateLoanDisplay,
+  getRate,
+  getTax,
 };
