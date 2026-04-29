@@ -124,25 +124,22 @@ function stopOtpTimer(globals) {
  * @param {scope} globals
  */
 function updateLoanDetails(globals) {
-
-  const data = globals.functions.exportData();
-
-  // Loan amount comes in Lakhs (ex: 6 → 6L)
   const loanAmount =
-    Number(data.loan_amount || 0) * 100000;
+    Number(
+      globals.form.panel_17639833601777356771535.offer.loan_amount.value || 0
+    );
 
-  // Tenure slider index → months
   const tenure =
-    (Number(data["Loan Tenure"] || 0) * 6) - 6;
+    Number(
+      globals.form.panel_17639833601777356771535.offer["Loan Tenure"].value || 0
+    );
 
   const annualInterestRate = 10.97;
 
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
-
-    const monthlyRate =
-      annualInterestRate / (12 * 100);
+    const monthlyRate = annualInterestRate / (12 * 100);
 
     emi =
       (loanAmount *
@@ -154,6 +151,23 @@ function updateLoanDetails(globals) {
   }
 
   return "₹" + emi.toLocaleString("en-IN");
+}
+
+function updateLoanDisplay(globals) {
+  const loanAmount =
+    Number(
+      globals.form.panel_17639833601777356771535.offer.loan_amount.value || 0
+    );
+
+  return "₹" + loanAmount.toLocaleString("en-IN");
+}
+
+function getRate() {
+  return "10.97%";
+}
+
+function getTax() {
+  return "₹4,000";
 }
 export {
   getFullName,
