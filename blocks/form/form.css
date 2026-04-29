@@ -1776,21 +1776,7 @@ main .form form select[multiple] {
   background: rgba(255,255,255,.65);
 }
 
-/* proceed button */
-#panelcontainer-134ab68aea::after {
-  content: "Proceed ❯";
-  display: block;
-  width: 190px;
-  height: 38px;
-  line-height: 38px;
-  background: #284bdc;
-  color: #fff;
-  border-radius: 7px;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 800;
-  margin-top: 4px;
-}
+
 
 /* right offer card */
 #panelcontainer-0274476a4c {
@@ -1987,7 +1973,48 @@ main .form form select[multiple] {
   margin-right: 9px;
   vertical-align: top;
 }
+/* === FINAL ALIGNMENT FIX === */
 
+/* Ensure panel behaves as positioning container */
+#panelcontainer-0274476a4c {
+  position: relative !important;
+}
+
+/* Fix EMI position */
+#panelcontainer-0274476a4c .field-emi {
+  position: absolute !important;
+  top: 138px !important;
+  left: 24px !important;
+  width: 130px !important;
+}
+
+/* Fix Rate position */
+#panelcontainer-0274476a4c .field-rate {
+  position: absolute !important;
+  top: 138px !important;
+  left: 165px !important;
+  width: 120px !important;
+}
+
+/* Fix Tax position */
+#panelcontainer-0274476a4c .field-tax {
+  position: absolute !important;
+  top: 200px !important;
+  left: 24px !important;
+  width: 130px !important;
+}
+
+/* Prevent text collision */
+#panelcontainer-0274476a4c .field-emi input,
+#panelcontainer-0274476a4c .field-rate input,
+#panelcontainer-0274476a4c .field-tax input {
+  white-space: nowrap !important;
+}
+
+/* Slight spacing cleanup */
+#panelcontainer-0274476a4c label {
+  line-height: 1.1 !important;
+}
 
 
 
