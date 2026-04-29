@@ -124,22 +124,44 @@ function stopOtpTimer(globals) {
  * @param {scope} globals
  */
 function updateLoanDetails(globals) {
+
+  debugger;
+
+  console.log("===== EMI DEBUG START =====");
+
+  const loanAmountField =
+    globals.form.panel_17639833601777356771535
+      .offer.loan_amount;
+
+  const tenureField =
+    globals.form.panel_17639833601777356771535
+      .offer["Loan Tenure"];
+
+  console.log("loanAmountField:", loanAmountField);
+  console.log("tenureField:", tenureField);
+
+  if (!loanAmountField || !tenureField) {
+    console.log("Field path incorrect");
+    return "";
+  }
+
   const loanAmount =
-    Number(
-      globals.form.panel_17639833601777356771535.offer.loan_amount.value || 0
-    );
+    Number(loanAmountField.value || 0);
 
   const tenure =
-    Number(
-      globals.form.panel_17639833601777356771535.offer["Loan Tenure"].value || 0
-    );
+    Number(tenureField.value || 0);
+
+  console.log("Loan Amount:", loanAmount);
+  console.log("Tenure:", tenure);
 
   const annualInterestRate = 10.97;
+
+  const monthlyRate =
+    annualInterestRate / (12 * 100);
 
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
-    const monthlyRate = annualInterestRate / (12 * 100);
 
     emi =
       (loanAmount *
@@ -150,24 +172,13 @@ function updateLoanDetails(globals) {
     emi = Math.round(emi);
   }
 
-  return "₹" + emi.toLocaleString("en-IN");
-}
+  const formattedEMI =
+    "₹" + emi.toLocaleString("en-IN");
 
-function updateLoanDisplay(globals) {
-  const loanAmount =
-    Number(
-      globals.form.panel_17639833601777356771535.offer.loan_amount.value || 0
-    );
+  console.log("Calculated EMI:", formattedEMI);
+  console.log("===== EMI DEBUG END =====");
 
-  return "₹" + loanAmount.toLocaleString("en-IN");
-}
-
-function getRate() {
-  return "10.97%";
-}
-
-function getTax() {
-  return "₹4,000";
+  return formattedEMI;
 }
 export {
   getFullName,
