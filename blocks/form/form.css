@@ -2404,14 +2404,17 @@ input {
 
 /* MOVE PROCEED BUTTON BELOW CARD */
 
-#panelcontainer-0274476a4c .field-proceed {
-  position: absolute !important;
-  top: 320px !important;   /* pushes below card */
-  left: 0 !important;
-  width: 100% !important;
+/* Keep proceed button visible below the left sliders */
+.field-proceed {
+  display: block !important;
+  position: relative !important;
+  margin-top: 28px !important;
+  width: 220px !important;
+  z-index: 10 !important;
 }
 
-/* Expand card height to allow space */
-#panelcontainer-0274476a4c {
-  height: 360px !important;
+.field-proceed button {
+  display: block !important;
+  width: 220px !important;
+  height: 42px !important;
 }
