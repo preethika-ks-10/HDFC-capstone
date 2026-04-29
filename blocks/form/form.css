@@ -2402,27 +2402,5 @@ input {
   color: #6b7280 !important;
 }
 
-/* MOVE PROCEED BUTTON BELOW CARD */
 
-/* === MOVE PROCEED BUTTON TO LEFT BELOW SLIDERS === */
 
-.field-proceed {
-  position: relative !important;
-  display: block !important;
-
-  /* push below sliders */
-  margin-top: 28px !important;
-
-  /* align left side */
-  margin-left: 0 !important;
-
-  width: 220px !important;
-  z-index: 5 !important;
-}
-
-/* Button styling */
-.field-proceed button {
-  width: 220px !important;
-  height: 44px !important;
-  display: block !important;
-}
