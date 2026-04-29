@@ -1975,52 +1975,63 @@ main .form form select[multiple] {
 }
 /* === FINAL ALIGNMENT FIX === */
 
-/* Ensure panel behaves as positioning container */
-#panelcontainer-0274476a4c {
-  position: relative !important;
+/* === FINAL CARD VALUE ALIGNMENT OVERRIDE === */
+
+#panelcontainer-0274476a4c .field-emi,
+#panelcontainer-0274476a4c .field-rate,
+#panelcontainer-0274476a4c .field-tax {
+  height: 42px !important;
+  overflow: visible !important;
 }
 
-/* Fix EMI position */
 #panelcontainer-0274476a4c .field-emi {
-  position: absolute !important;
-  top: 138px !important;
+  top: 150px !important;
   left: 24px !important;
-  width: 130px !important;
-}
-
-/* Fix Rate position */
-#panelcontainer-0274476a4c .field-rate {
-  position: absolute !important;
-  top: 138px !important;
-  left: 165px !important;
   width: 120px !important;
 }
 
-/* Fix Tax position */
-#panelcontainer-0274476a4c .field-tax {
-  position: absolute !important;
-  top: 200px !important;
-  left: 24px !important;
-  width: 130px !important;
+#panelcontainer-0274476a4c .field-rate {
+  top: 150px !important;
+  left: 170px !important;
+  width: 120px !important;
 }
 
-/* Prevent text collision */
+#panelcontainer-0274476a4c .field-tax {
+  top: 205px !important;
+  left: 24px !important;
+  width: 120px !important;
+}
+
+/* Put label and value in clean vertical stack */
+#panelcontainer-0274476a4c .field-emi label,
+#panelcontainer-0274476a4c .field-rate label,
+#panelcontainer-0274476a4c .field-tax label {
+  display: block !important;
+  margin-left: 14px !important;
+  margin-bottom: 8px !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+}
+
 #panelcontainer-0274476a4c .field-emi input,
 #panelcontainer-0274476a4c .field-rate input,
 #panelcontainer-0274476a4c .field-tax input {
-  white-space: nowrap !important;
+  display: block !important;
+  margin-left: 14px !important;
+  margin-top: 0 !important;
+  font-size: 13px !important;
+  line-height: 14px !important;
 }
 
-/* Slight spacing cleanup */
-#panelcontainer-0274476a4c label {
-  line-height: 1.1 !important;
+/* Orange bar should sit beside full field */
+#panelcontainer-0274476a4c .field-emi::before,
+#panelcontainer-0274476a4c .field-rate::before,
+#panelcontainer-0274476a4c .field-tax::before {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  height: 42px !important;
 }
-
-
-
-
-
-
 
 
 
