@@ -123,17 +123,22 @@ function stopOtpTimer(globals) {
  * EMI Calculation
  * @param {scope} globals
  */
-function updateLoanDisplay() {
-  return globals.functions.exportData().loan_amount
-    ? "₹" + (Number(globals.functions.exportData().loan_amount) * 100000).toLocaleString("en-IN")
+function updateLoanDisplay(globals) {
+  const data = globals.functions.exportData();
+
+  const loanAmount = Number(data.loan_amount || 0) * 100000;
+
+  return loanAmount > 0
+    ? "₹" + loanAmount.toLocaleString("en-IN")
     : "";
 }
 
-function updateLoanDetails() {
+function updateLoanDetails(globals) {
   const data = globals.functions.exportData();
 
   const loanAmount = Number(data.loan_amount || 0) * 100000;
   const tenure = Number(data["Loan Tenure"] || 0);
+
   const rate = 10.97;
   const monthlyRate = rate / (12 * 100);
 
