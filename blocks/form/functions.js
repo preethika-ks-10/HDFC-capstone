@@ -124,61 +124,41 @@ function stopOtpTimer(globals) {
  * @param {scope} globals
  */
 function updateLoanDetails(globals) {
+  const data = globals.functions.exportData();
 
-  debugger;
-
-  console.log("===== EMI DEBUG START =====");
-
-  const loanAmountField =
-    globals.form.panel_17639833601777356771535
-      .offer.loan_amount;
-
-  const tenureField =
-    globals.form.panel_17639833601777356771535
-      .offer["Loan Tenure"];
-
-  console.log("loanAmountField:", loanAmountField);
-  console.log("tenureField:", tenureField);
-
-  if (!loanAmountField || !tenureField) {
-    console.log("Field path incorrect");
-    return "";
-  }
-
-  const loanAmount =
-    Number(loanAmountField.value || 0);
-
-  const tenure =
-    Number(tenureField.value || 0);
-
-  console.log("Loan Amount:", loanAmount);
-  console.log("Tenure:", tenure);
+  const loanAmount = Number(data.loan_amount || 0) * 100000;
+  const tenure = Number(data["Loan Tenure"] || 0);
 
   const annualInterestRate = 10.97;
-
-  const monthlyRate =
-    annualInterestRate / (12 * 100);
+  const monthlyRate = annualInterestRate / (12 * 100);
 
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
-
     emi =
-      (loanAmount *
-        monthlyRate *
-        Math.pow(1 + monthlyRate, tenure)) /
+      (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
       (Math.pow(1 + monthlyRate, tenure) - 1);
 
     emi = Math.round(emi);
   }
 
-  const formattedEMI =
-    "₹" + emi.toLocaleString("en-IN");
+  return "₹" + emi.toLocaleString("en-IN");
+}
 
-  console.log("Calculated EMI:", formattedEMI);
-  console.log("===== EMI DEBUG END =====");
+function updateLoanDisplay(globals) {
+  const data = globals.functions.exportData();
 
-  return formattedEMI;
+  const loanAmount = Number(data.loan_amount || 0) * 100000;
+
+  return "₹" + loanAmount.toLocaleString("en-IN");
+}
+
+function getRate() {
+  return "10.97%";
+}
+
+function getTax() {
+  return "₹4,000";
 }
 export {
   getFullName,
@@ -188,4 +168,7 @@ export {
   startOtpTimer,
   stopOtpTimer,
   updateLoanDetails,
+  updateLoanDisplay,
+  getRate,
+  getTax,
 };
