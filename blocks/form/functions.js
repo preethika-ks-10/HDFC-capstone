@@ -123,19 +123,10 @@ function stopOtpTimer(globals) {
  * EMI Calculation
  * @param {scope} globals
  */
-/**
- * EMI Calculation
- * @param {scope} globals
- */
-
-function getNumber(value) {
-  return Number(String(value || "").replace(/[₹,\sA-Za-z]/g, ""));
-}
-
 function updateLoanDisplay(globals) {
-  const loanAmount = getNumber(
-    globals.form.panel_17639833601777356771535.offer.loan_amount.value
-  );
+  const data = globals.functions.exportData();
+
+  const loanAmount = Number(data.loan_amount || 0);
 
   return loanAmount > 0
     ? "₹" + loanAmount.toLocaleString("en-IN")
@@ -143,13 +134,10 @@ function updateLoanDisplay(globals) {
 }
 
 function updateLoanDetails(globals) {
-  const loanAmount = getNumber(
-    globals.form.panel_17639833601777356771535.offer.loan_amount.value
-  );
+  const data = globals.functions.exportData();
 
-  const tenure = getNumber(
-    globals.form.panel_17639833601777356771535.offer["Loan Tenure"].value
-  );
+  const loanAmount = Number(data.loan_amount || 0);
+  const tenure = Number(data["Loan Tenure"] || 0);
 
   const rate = 10.97;
   const monthlyRate = rate / (12 * 100);
@@ -165,14 +153,6 @@ function updateLoanDetails(globals) {
   }
 
   return "₹" + emi.toLocaleString("en-IN");
-}
-
-function getRate() {
-  return "10.97%";
-}
-
-function getTax() {
-  return "₹4,000";
 }
 
 export {
