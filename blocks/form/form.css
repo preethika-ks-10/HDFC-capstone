@@ -1975,7 +1975,7 @@ main .form form select[multiple] {
 }
 /* === FINAL ALIGNMENT FIX === */
 
-/* === FINAL CARD VALUE ALIGNMENT OVERRIDE === */
+/* === FINAL CARD VALUE ALIGNMENT OVERRIDE (MOVED UP) === */
 
 #panelcontainer-0274476a4c .field-emi,
 #panelcontainer-0274476a4c .field-rate,
@@ -1984,20 +1984,23 @@ main .form form select[multiple] {
   overflow: visible !important;
 }
 
+/* EMI — moved UP */
 #panelcontainer-0274476a4c .field-emi {
-  top: 150px !important;
+  top: 135px !important;   /* was 150px */
   left: 24px !important;
   width: 120px !important;
 }
 
+/* Rate — moved UP */
 #panelcontainer-0274476a4c .field-rate {
-  top: 150px !important;
+  top: 135px !important;   /* was 150px */
   left: 170px !important;
   width: 120px !important;
 }
 
+/* Tax — moved UP */
 #panelcontainer-0274476a4c .field-tax {
-  top: 205px !important;
+  top: 185px !important;   /* was 205px */
   left: 24px !important;
   width: 120px !important;
 }
@@ -2013,6 +2016,7 @@ main .form form select[multiple] {
   line-height: 1 !important;
 }
 
+/* Values */
 #panelcontainer-0274476a4c .field-emi input,
 #panelcontainer-0274476a4c .field-rate input,
 #panelcontainer-0274476a4c .field-tax input {
@@ -2023,7 +2027,7 @@ main .form form select[multiple] {
   line-height: 14px !important;
 }
 
-/* Orange bar should sit beside full field */
+/* Orange bar alignment */
 #panelcontainer-0274476a4c .field-emi::before,
 #panelcontainer-0274476a4c .field-rate::before,
 #panelcontainer-0274476a4c .field-tax::before {
