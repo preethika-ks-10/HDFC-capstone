@@ -2404,17 +2404,25 @@ input {
 
 /* MOVE PROCEED BUTTON BELOW CARD */
 
-/* Keep proceed button visible below the left sliders */
+/* === MOVE PROCEED BUTTON TO LEFT BELOW SLIDERS === */
+
 .field-proceed {
-  display: block !important;
   position: relative !important;
+  display: block !important;
+
+  /* push below sliders */
   margin-top: 28px !important;
+
+  /* align left side */
+  margin-left: 0 !important;
+
   width: 220px !important;
-  z-index: 10 !important;
+  z-index: 5 !important;
 }
 
+/* Button styling */
 .field-proceed button {
-  display: block !important;
   width: 220px !important;
-  height: 42px !important;
+  height: 44px !important;
+  display: block !important;
 }
