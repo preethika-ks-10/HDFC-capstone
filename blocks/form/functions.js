@@ -189,7 +189,7 @@ function getTax() {
  * @returns {string}
  */
 function handleOtpSuccess(globals) {
-  const panel = globals.form.otp_verification_panel;
+  const panel = globals.form.otp_verification;
  
   const validationMessage = panel.validation_message;
   const resendBtn = panel.resend_otp;
@@ -229,7 +229,7 @@ function handleOtpSuccess(globals) {
  * @returns {string}
  */
 function handleOtpInvalid(globals) {
-  const panel = globals.form.otp_verification_panel;
+  const panel = globals.form.otp_verification;
  
   const validationMessage = panel.validation_message;
   const resendBtn = panel.resend_otp;
@@ -274,7 +274,7 @@ function handleOtpInvalid(globals) {
  * @returns {string}
  */
 function handleOtpResend(globals) {
-  const panel = globals.form.otp_verification_panel;
+  const panel = globals.form.otp_verification;
  
   const attemptInfo = panel.attempt_info;
   const validationMessage = panel.validation_message;
@@ -317,7 +317,7 @@ function handleOtpResend(globals) {
  * @returns {string}
  */
 function handleOtpGenerated(globals) {
-  const panel = globals.form.otp_verification_panel;
+  const panel = globals.form.otp_verification;
   const attemptInfo = panel.attempt_info;
  
   window.otpResendAttemptsLeft = 3;
