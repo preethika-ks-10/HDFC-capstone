@@ -61,6 +61,7 @@ function maskMobileNumber(mobileNumber) {
  */
 function startOtpTimer(globals) {
   const timerField = globals.form.otp_verification.timer;
+  debugger;
   let seconds = 30;
 
   if (!timerField) {
@@ -180,6 +181,159 @@ function getTax() {
   return "₹4,000";
 }
 
+
+
+/**
+ * OTP success handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleOtpSuccess(globals) {
+  const panel = globals.form.otp_verification_panel;
+ 
+  const validationMessage = panel.validation_message;
+  const resendBtn = panel.resend_otp;
+  const submitBtn = panel.otp_submit;
+ 
+  stopOtpTimer(globals);
+ 
+  window.otpResendAttemptsLeft = 3;
+  window.otpTimerExpired = false;
+ 
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "OTP validated successfully",
+      visible: true
+    });
+  }
+ 
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+ 
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: true
+    });
+  }
+ 
+  return "OTP validated successfully";
+}
+ 
+/**
+ * OTP invalid handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleOtpInvalid(globals) {
+  const panel = globals.form.otp_verification_panel;
+ 
+  const validationMessage = panel.validation_message;
+  const resendBtn = panel.resend_otp;
+  const submitBtn = panel.otp_submit;
+ 
+  // reduce attempts
+  window.otpResendAttemptsLeft = window.otpResendAttemptsLeft || 3;
+  if (window.otpResendAttemptsLeft > 0) {
+    window.otpResendAttemptsLeft -= 1;
+  }
+ 
+  // show invalid message
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "Invalid OTP",
+      visible: true
+    });
+  }
+ 
+  // disable submit if no attempts left
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: window.otpResendAttemptsLeft > 0
+    });
+  }
+ 
+  // show resend if attempts still available
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: window.otpResendAttemptsLeft > 0,
+      enabled: window.otpResendAttemptsLeft > 0
+    });
+  }
+ 
+  return "Invalid OTP";
+}
+ 
+ 
+/**
+ * Resend OTP handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleOtpResend(globals) {
+  const panel = globals.form.otp_verification_panel;
+ 
+  const attemptInfo = panel.attempt_info;
+  const validationMessage = panel.validation_message;
+  const resendBtn = panel.resend_otp;
+ 
+  window.otpResendAttemptsLeft = window.otpResendAttemptsLeft ?? 3;
+ 
+  if (window.otpResendAttemptsLeft > 0) {
+    window.otpResendAttemptsLeft -= 1;
+  }
+ 
+  if (attemptInfo) {
+    globals.functions.setProperty(attemptInfo, {
+      value: `${window.otpResendAttemptsLeft}/3 attempt(s) left`
+    });
+  }
+ 
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "",
+      visible: false
+    });
+  }
+ 
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+ 
+  startOtpTimer(globals);
+ 
+  return `${window.otpResendAttemptsLeft}/3 attempt(s) left`;
+}
+ 
+/**
+ * 3/3 attempts
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleOtpGenerated(globals) {
+  const panel = globals.form.otp_verification_panel;
+  const attemptInfo = panel.attempt_info;
+ 
+  window.otpResendAttemptsLeft = 3;
+ 
+  if (attemptInfo) {
+    globals.functions.setProperty(attemptInfo, {
+      value: "3/3 attempt(s) left"
+    });
+  }
+ 
+  startOtpTimer(globals);
+ 
+  return "OTP generated";
+}
+ 
+
 export {
   getFullName,
   days,
@@ -191,4 +345,6 @@ export {
   updateLoanDisplay,
   getRate,
   getTax,
+  handleOtpSuccess, handleOtpResend,
+  handleOtpInvalid, handleOtpGenerated,
 };
