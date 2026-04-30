@@ -2066,6 +2066,7 @@ p {
 }
 
 input {
+  border: 0 !important;
   outline: 0 !important;
   background: transparent !important;
 }
