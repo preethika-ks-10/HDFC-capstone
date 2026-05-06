@@ -344,7 +344,7 @@ function fetchReviewDetailsAPI(globals) {
   const mobile =
     document.querySelector('input[name="mobile"]')?.value || "";
 
-  fetch("https://junction-buffoon-amplify.ngrok-free.dev/proceed-details", {
+  fetch(" https://writing-dimly-spout.ngrok-free.dev/proceed-details", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
