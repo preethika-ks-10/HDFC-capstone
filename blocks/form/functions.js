@@ -340,91 +340,81 @@ function handleOtpGenerated(globals) {
  * Fetch Review Details
  * @param {scope} globals
  */
+/**
+ * Fetch Review Details
+ * @param {scope} globals
+ */
 function fetchReviewDetailsAPI(globals) {
   const mobile =
     document.querySelector('input[name="aadhaar_linked_mobile_number"]')?.value || "";
 
-  fetch(" https://writing-dimly-spout.ngrok-free.dev/proceed-details", {
+  console.log("Mobile sending:", mobile);
+
+  if (!mobile) {
+    console.error("Mobile number not found");
+    return "Mobile missing";
+  }
+
+  fetch("https://writing-dimly-spout.ngrok-free.dev/proceed-details", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ mobile })
+    body: JSON.stringify({ mobile: mobile })
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log(response);
+      console.log("API response:", response);
 
       if (!response.success) return;
 
       const data = response.data;
 
+      const loan_details =
+        globals.form.review_details.form_accordion1776850397637.loan_details;
+
+      const personal_details =
+        globals.form.review_details.form_accordion1776850397637.personal_details;
+
+      function setValue(field, value) {
+        if (!field) {
+          console.warn("Field not found");
+          return;
+        }
+
+        globals.functions.setProperty(field, {
+          value: value || ""
+        });
+      }
+
       /* LOAN DETAILS */
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.loan_details.processing_fee,
-        { value: data.processingFees }
-      );
 
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.loan_details.employer_name,
-        { value: data.employerName }
-      );
-
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.loan_details.schedule_of_charges,
-        { value: data.scheduleOfCharges }
-      );
-
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.loan_details.type_of_loan,
-        { value: data.typeOfLoan }
-      );
-
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.loan_details.rate_of_interest,
-        { value: data.rateOfInterest }
-      );
+      setValue(loan_details.loandisplay, data.loanAmount);
+      setValue(loan_details.emi, data.emiAmount);
+      setValue(loan_details.tenure, data.tenure);
+      setValue(loan_details.processing_fee, data.processingFees);
+      setValue(loan_details.rate, data.rateOfInterest);
+      setValue(loan_details.employer_name, data.employerName);
+      setValue(loan_details.schedule_of_charges, data.scheduleOfCharges);
+      setValue(loan_details.type_of_loan, data.typeOfLoan);
 
       /* PERSONAL DETAILS */
-      globals.functions.setProperty(
-       globals.form.review_details.form_accordion1776850397637.personal_details.full_name,
-        { value: data.name }
-      );
 
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.personal_details.pan,
-        { value: data.pan }
-      );
-
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.personal_details.current_address,
-        { value: data.currentAddress }
-      );
-
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.personal_details.residence_type,
-        { value: data.residenceType }
-      );
-
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.personal_details.date_of_birth,
-        { value: data.dob }
-      );
-
-      globals.functions.setProperty(
-        globals.form.review_details.form_accordion1776850397637.personal_details.mobile_number,
-        { value: data.mobileNumber }
-      );
+      setValue(personal_details.full_name, data.name);
+      setValue(personal_details.mobile_number, data.mobileNumber);
+      setValue(personal_details.date_of_birth, data.dob);
+      setValue(personal_details.pan, data.pan);
+      setValue(personal_details.current_address, data.currentAddress);
+      setValue(personal_details.residence_type, data.residenceType);
 
       console.log("Proceed details populated");
     })
     .catch((err) => {
-      console.error(err);
+      console.error("API error:", err);
     });
 
   return "API called";
 }
- 
 
 export {
   getFullName,
