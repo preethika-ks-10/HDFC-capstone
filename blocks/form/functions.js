@@ -416,6 +416,58 @@ function fetchReviewDetailsAPI(globals) {
   return "API called";
 }
 
+
+/*Loan application number*/
+/**
+ * Proceed API
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleProceedAPI(globals) {
+ 
+  const phone =
+    document.querySelector('input[name="mobile"]')?.value || "";
+ 
+  fetch(" https://writing-dimly-spout.ngrok-free.dev/proceed-details", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ phone })
+  })
+ 
+    .then((res) => res.json())
+ 
+    .then((response) => {
+ 
+      console.log("Proceed Response:", response);
+ 
+      if (!response.success) return;
+ 
+      const applicationNumber =
+        response.data.loanApplicationNumber;
+ 
+      /* SET APPLICATION NUMBER */
+ 
+      globals.functions.setProperty(
+        globals.form.loan_application_summary.text_input1777269877834,
+        {
+          value: applicationNumber
+        }
+      );
+ 
+      
+ 
+    })
+ 
+    .catch((err) => {
+      console.error(err);
+    });
+ 
+  return "Proceed API called";
+}
+ 
+
 export {
   getFullName,
   days,
@@ -430,4 +482,5 @@ export {
   handleOtpSuccess, handleOtpResend,
   handleOtpInvalid, handleOtpGenerated,
   fetchReviewDetailsAPI,
+  handleProceedAPI,
 };
