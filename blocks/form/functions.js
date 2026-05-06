@@ -332,6 +332,98 @@ function handleOtpGenerated(globals) {
  
   return "OTP generated";
 }
+
+
+
+
+/**
+ * Fetch Review Details
+ * @param {scope} globals
+ */
+function fetchReviewDetailsAPI(globals) {
+  const mobile =
+    document.querySelector('input[name="mobile"]')?.value || "";
+
+  fetch("https://junction-buffoon-amplify.ngrok-free.dev/proceed-details", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ mobile })
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      console.log(response);
+
+      if (!response.success) return;
+
+      const data = response.data;
+
+      /* LOAN DETAILS */
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.loan_details.processing_fee,
+        { value: data.processingFees }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.loan_details.employer_name,
+        { value: data.employerName }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.loan_details.schedule_of_charges,
+        { value: data.scheduleOfCharges }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.loan_details.type_of_loan,
+        { value: data.typeOfLoan }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.loan_details.rate_of_interest,
+        { value: data.rateOfInterest }
+      );
+
+      /* PERSONAL DETAILS */
+      globals.functions.setProperty(
+       globals.form.review_details.form_accordion1776850397637.personal_details.full_name,
+        { value: data.name }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.personal_details.pan,
+        { value: data.pan }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.personal_details.current_address,
+        { value: data.currentAddress }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.personal_details.residence_type,
+        { value: data.residenceType }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.personal_details.date_of_birth,
+        { value: data.dob }
+      );
+
+      globals.functions.setProperty(
+        globals.form.review_details.form_accordion1776850397637.personal_details.mobile_number,
+        { value: data.mobileNumber }
+      );
+
+      console.log("Proceed details populated");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  return "API called";
+}
  
 
 export {
@@ -347,4 +439,5 @@ export {
   getTax,
   handleOtpSuccess, handleOtpResend,
   handleOtpInvalid, handleOtpGenerated,
+  fetchReviewDetailsAPI,
 };
