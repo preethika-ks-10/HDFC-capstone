@@ -426,7 +426,7 @@ function fetchReviewDetailsAPI(globals) {
 function handleProceedAPI(globals) {
  
   const phone =
-    document.querySelector('input[name="mobile"]')?.value || "";
+    document.querySelector('input[name="aadhaar_linked_mobile_number"]')?.value || "";
  
   fetch(" https://writing-dimly-spout.ngrok-free.dev/proceed-details", {
     method: "POST",
