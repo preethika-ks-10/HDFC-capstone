@@ -419,54 +419,52 @@ function fetchReviewDetailsAPI(globals) {
 
 /*Loan application number*/
 /**
+ * /**
  * Proceed API
  * @param {scope} globals
  * @returns {string}
  */
 function handleProceedAPI(globals) {
- 
   const mobile =
     document.querySelector('input[name="aadhaar_linked_mobile_number"]')?.value || "";
- 
-  fetch(" https://writing-dimly-spout.ngrok-free.dev/proceed-details", {
+
+  console.log("Mobile sending:", mobile);
+
+  if (!mobile) {
+    console.error("Mobile number missing");
+    return "Mobile missing";
+  }
+
+  fetch("https://writing-dimly-spout.ngrok-free.dev/proceed-details", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ phone })
+    body: JSON.stringify({ mobile: mobile })
   })
- 
     .then((res) => res.json())
- 
     .then((response) => {
- 
       console.log("Proceed Response:", response);
- 
+
       if (!response.success) return;
- 
-      const applicationNumber =
-        response.data.loanApplicationNumber;
- 
-      /* SET APPLICATION NUMBER */
- 
+
+      const applicationNumber = response.data.loanApplicationNumber;
+
       globals.functions.setProperty(
         globals.form.loan_application_summary.text_input1777269877834,
         {
           value: applicationNumber
         }
       );
- 
-      
- 
+
+      console.log("Application number set:", applicationNumber);
     })
- 
     .catch((err) => {
-      console.error(err);
+      console.error("Proceed API error:", err);
     });
- 
+
   return "Proceed API called";
 }
- 
 
 export {
   getFullName,
