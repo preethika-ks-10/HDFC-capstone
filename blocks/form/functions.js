@@ -93,55 +93,53 @@ function getFieldValue(name) {
  * EMI Calculation
  * @param {scope} globals
  */
-/* EMI calculations */
+/**
+ * EMI Calculation
+ * @param {scope} globals
+ */
+function updateLoanDisplay(globals) {
+  const data = globals.functions.exportData();
 
-function getSnappedTenure(value) {
-  const allowedTenures = [12, 24, 36, 48, 60, 72, 84];
+  const loanAmount =
+    Number(data.loan_amount || 0) * 250000;
 
-  value = Number(String(value || "").replace(/[^\d.]/g, ""));
-
-  if (!value || isNaN(value)) {
-    value = 12;
-  }
-
-  return allowedTenures.reduce((prev, curr) =>
-    Math.abs(curr - value) < Math.abs(prev - value)
-      ? curr
-      : prev
-  );
+  return loanAmount > 0
+    ? "₹" + loanAmount.toLocaleString("en-IN")
+    : "";
 }
 
 function updateLoanDetails(globals) {
   const data = globals.functions.exportData();
 
-  const loanAmount = getLoanAmount(globals);
+  // Loan scaling already correct
+  const loanAmount =
+    Number(data.loan_amount || 0) * 250000;
 
-  const rawTenure = getNumber(data["Loan Tenure"]);
+  // Convert tenure step → months
+  const tenureStep =
+    Number(data["Loan Tenure"] || 0);
 
-  const tenure = getSnappedTenure(rawTenure);
+  // Map step to months (12–84)
+  const tenure = tenureStep * 12;
 
   const rate = 10.97;
-  const monthlyRate = rate / (12 * 100);
+  const monthlyRate =
+    rate / (12 * 100);
 
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
+
     emi =
-      (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
+      (loanAmount *
+        monthlyRate *
+        Math.pow(1 + monthlyRate, tenure)) /
       (Math.pow(1 + monthlyRate, tenure) - 1);
 
     emi = Math.round(emi);
   }
 
-  return emi > 0 ? "₹" + emi.toLocaleString("en-IN") : "";
-}
-
-function updateLoanDisplay(globals) {
-  const loanAmount = getLoanAmount(globals);
-
-  return loanAmount > 0
-    ? "₹" + loanAmount.toLocaleString("en-IN")
-    : "";
+  return "₹" + emi.toLocaleString("en-IN");
 }
 
 function getRate() {
@@ -151,6 +149,7 @@ function getRate() {
 function getTax() {
   return "₹4,000";
 }
+
 
 
 /* =====================
@@ -670,7 +669,6 @@ export {
   maskMobileNumber,
   updateLoanDetails,
   updateLoanDisplay,
-  getSnappedTenure,
   getRate,
   getTax,
   generateOTP,
