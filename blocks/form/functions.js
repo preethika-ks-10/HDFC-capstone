@@ -88,12 +88,15 @@ function getFieldValue(name) {
 
 
 
-/* =====================
-   EMI Calculation
-===================== */
 
-const TENURE_STEPS = [12, 24, 36, 48, 60, 72, 84];
-
+/**
+ * EMI Calculation
+ * @param {scope} globals
+ */
+/**
+ * EMI Calculation
+ * @param {scope} globals
+ */
 function updateLoanDisplay(globals) {
   const data = globals.functions.exportData();
 
@@ -108,20 +111,18 @@ function updateLoanDisplay(globals) {
 function updateLoanDetails(globals) {
   const data = globals.functions.exportData();
 
-  /* ===== Loan Amount ===== */
+  // Loan scaling already correct
   const loanAmount =
     Number(data.loan_amount || 0) * 250000;
 
-  /* ===== Tenure ===== */
-  const tenureIndex =
+  // Convert tenure step → months
+  const tenureStep =
     Number(data["Loan Tenure"] || 0);
 
-  const tenure =
-    TENURE_STEPS[tenureIndex] || 12;
+  // Map step to months (12–84)
+  const tenure = tenureStep * 12;
 
-  /* ===== Interest ===== */
   const rate = 10.97;
-
   const monthlyRate =
     rate / (12 * 100);
 
@@ -148,6 +149,7 @@ function getRate() {
 function getTax() {
   return "₹4,000";
 }
+
 
 
 /* =====================
