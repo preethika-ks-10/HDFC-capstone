@@ -87,53 +87,53 @@ function getFieldValue(name) {
 }
 
 
+/* =====================
+   EMI CALCULATIONS
+===================== */
+const LOAN_STEPS = [50000, 200000, 400000, 600000, 800000, 1000000, 1500000];
+const TENURE_STEPS = [12, 24, 36, 48, 60, 72, 84];
 
+function getActualLoanAmount(sliderValue) {
+  const value = Number(sliderValue || 0);
 
-/**
- * EMI Calculation
- * @param {scope} globals
- */
-/**
- * EMI Calculation
- * @param {scope} globals
- */
+  const lowerIndex = Math.floor(value);
+  const upperIndex = Math.ceil(value);
+
+  if (lowerIndex === upperIndex) {
+    return LOAN_STEPS[lowerIndex] || LOAN_STEPS[0];
+  }
+
+  const lowerValue = LOAN_STEPS[lowerIndex];
+  const upperValue = LOAN_STEPS[upperIndex];
+  const ratio = value - lowerIndex;
+
+  return Math.round((lowerValue + (upperValue - lowerValue) * ratio) / 1000) * 1000;
+}
+
 function updateLoanDisplay(globals) {
   const data = globals.functions.exportData();
 
-  const loanAmount =
-    Number(data.loan_amount || 0) * 250000;
+  const loanAmount = getActualLoanAmount(data.loan_amount);
 
-  return loanAmount > 0
-    ? "₹" + loanAmount.toLocaleString("en-IN")
-    : "";
+  return "₹" + loanAmount.toLocaleString("en-IN");
 }
 
 function updateLoanDetails(globals) {
   const data = globals.functions.exportData();
 
-  // Loan scaling already correct
-  const loanAmount =
-    Number(data.loan_amount || 0) * 250000;
+  const loanAmount = getActualLoanAmount(data.loan_amount);
 
-  // Convert tenure step → months
-  const tenureStep =
-    Number(data["Loan Tenure"] || 0);
-
-  // Map step to months (12–84)
-  const tenure = tenureStep * 12;
+  const tenureIndex = Number(data["Loan Tenure"] || 0);
+  const tenure = TENURE_STEPS[Math.round(tenureIndex)] || 12;
 
   const rate = 10.97;
-  const monthlyRate =
-    rate / (12 * 100);
+  const monthlyRate = rate / (12 * 100);
 
   let emi = 0;
 
   if (loanAmount > 0 && tenure > 0) {
-
     emi =
-      (loanAmount *
-        monthlyRate *
-        Math.pow(1 + monthlyRate, tenure)) /
+      (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
       (Math.pow(1 + monthlyRate, tenure) - 1);
 
     emi = Math.round(emi);
@@ -149,9 +149,6 @@ function getRate() {
 function getTax() {
   return "₹4,000";
 }
-
-
-
 /* =====================
    OTP FRONTEND JS
 ===================== */
