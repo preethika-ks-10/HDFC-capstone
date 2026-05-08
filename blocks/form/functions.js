@@ -355,93 +355,48 @@ function runOtpCountdown(globals) {
    Call in AEM rule: generateOTP(scope)
 ===================== */
 
-function generateOTP(globals) {
+function generateOTP() {
   try {
-    console.log("FULL GLOBALS:", globals);
+    const mobile =
+      document.querySelector('[name="aadhaar_linked_mobile_number"]')?.value || "";
 
-    const form = getForm(globals);
+    const dob =
+      document.querySelector('[name="date_of_birth"]')?.value || "";
 
-    if (!form) {
-      console.error("globals.form is undefined. Call generateOTP(scope), not generateOTP().");
-      return "";
-    }
-
-    const otpPanel = form.otp_page;
-
-    if (!otpPanel) {
-      console.error("otp_page panel not found");
-      return "";
-    }
-
-    const mobile = getValue(globals, "aadhaar_linked_mobile_number");
-    const dob = getValue(globals, "date_of_birth");
-
-    const payload = {
-      mobile: mobile,
-      dob: dob
-    };
-
-    console.log("OTP PAYLOAD:", payload);
+    console.log("OTP PAYLOAD:", { mobile, dob });
 
     if (!mobile || !dob) {
-      globals.functions.setProperty(otpPanel["success failure msg"], {
-        value: "Mobile number and DOB are required",
-        visible: true
-      });
+      console.error("Mobile number and DOB are required");
       return "";
     }
 
-    fetch(OTP_BASE_URL + "/generate-otp", {
+    fetch("https://writing-dimly-spout.ngrok-free.dev/generate-otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ mobile, dob })
     })
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (result) {
+      .then(res => res.json())
+      .then(result => {
         console.log("OTP RESULT:", result);
 
-        if (result.status === "success" && result.otp) {
+        if (result.status === "success") {
           window.otpValidationAttempts = 3;
+          window.otpResendAttempts = 3;
 
-          if (window.otpResendAttempts === undefined) {
-            window.otpResendAttempts = 3;
+          const otpInput = document.querySelector('[name="otp_code"]');
+          if (otpInput) {
+            otpInput.value = result.otp;
+            otpInput.dispatchEvent(new Event("input", { bubbles: true }));
+            otpInput.dispatchEvent(new Event("change", { bubbles: true }));
           }
 
-          globals.functions.setProperty(otpPanel, {
-            visible: true
-          });
-
-          globals.functions.setProperty(otpPanel["otp_attempts_left"], {
-            value: "3/3 attempt(s) left",
-            visible: true
-          });
-
-          globals.functions.setProperty(otpPanel["success failure msg"], {
-            value: "",
-            visible: true
-          });
-
-          setOtpValue(globals, String(result.otp));
-
-          runOtpCountdown(globals);
-        } else {
-          globals.functions.setProperty(otpPanel["success failure msg"], {
-            value: result.message || "OTP generation failed",
-            visible: true
-          });
+          console.log("OTP generated successfully:", result.otp);
         }
       })
-      .catch(function (err) {
+      .catch(err => {
         console.error("Generate OTP API Error:", err);
-
-        globals.functions.setProperty(otpPanel["success failure msg"], {
-          value: "Unable to generate OTP. Please try again.",
-          visible: true
-        });
       });
 
     return "";
@@ -450,7 +405,6 @@ function generateOTP(globals) {
     return "";
   }
 }
-
 /* =====================
    VALIDATE OTP
    Call in AEM rule: validateOTP(scope)
@@ -758,8 +712,6 @@ export {
   days,
   submitFormArrayToString,
   maskMobileNumber,
-  startOtpTimer,
-  stopOtpTimer,
   updateLoanDetails,
   updateLoanDisplay,
   getRate,
