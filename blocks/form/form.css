@@ -2469,6 +2469,60 @@ input {
   font-size: 13px !important;
   color: #6b7280 !important;
 }
+.field-text_input1777269877834 {
+  position: relative;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px 16px 14px 58px;
+  max-width: 320px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.field-text_input1777269877834::before {
+  content: "☑";
+  position: absolute;
+  left: 18px;
+  top: 22px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #efe9ff;
+  color: #6c4df6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.field-text_input1777269877834 label {
+  display: block;
+  color: #7a7f8c;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.field-text_input1777269877834 input {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #071b45;
+  outline: none;
+  width: 100%;
+}
+
+.field-text_input1777269877834 input::after {
+  content: "📋";
+}
+.field-text_input1777269877834::after {
+  content: "⧉";
+  position: absolute;
+  left: 168px;
+  top: 38px;
+  color: #5b6ee1;
+  font-size: 16px;
+}
 
 
 
