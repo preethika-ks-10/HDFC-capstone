@@ -24,7 +24,6 @@ function getActualValue(input, stepsArray) {
 
   const lowerValue = stepsArray[lowerIndex];
   const upperValue = stepsArray[upperIndex];
-
   const ratio = sliderValue - lowerIndex;
 
   return lowerValue + (upperValue - lowerValue) * ratio;
@@ -41,17 +40,22 @@ function normalizeValue(value, type) {
 
 /* ===== Update UI ===== */
 function updateUI(input, wrapper, stepsArray, type) {
-  const sliderValue = Number(input.value);
+  let sliderValue = Number(input.value);
+
+  if (type === "tenure") {
+    sliderValue = Math.round(sliderValue);
+    input.value = sliderValue;
+  }
 
   const rawValue =
     type === "tenure"
-      ? stepsArray[Math.round(sliderValue)]
+      ? stepsArray[sliderValue]
       : getActualValue(input, stepsArray);
 
   const actualValue = normalizeValue(rawValue, type);
 
   const percent =
-    (Math.round(sliderValue) / (stepsArray.length - 1)) * 100;
+    (sliderValue / (stepsArray.length - 1)) * 100;
 
   const valueBox = wrapper.querySelector(".loan-value-box");
 
@@ -97,7 +101,6 @@ export default function decorate(fieldDiv) {
   const type = isLoan ? "loan" : "tenure";
   const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
 
-  /* ===== Slider Setup ===== */
   input.type = "range";
   input.min = 0;
   input.max = stepsArray.length - 1;
@@ -107,17 +110,14 @@ export default function decorate(fieldDiv) {
   const stepIndex = stepsArray.indexOf(initialValue);
   input.value = stepIndex >= 0 ? stepIndex : 0;
 
-  /* ===== Wrapper ===== */
   const wrapper = document.createElement("div");
   wrapper.className = "range-widget-wrapper decorated";
   input.after(wrapper);
 
-  /* ===== Value Box ===== */
   const valueBox = document.createElement("div");
   valueBox.className = "loan-value-box";
   wrapper.appendChild(valueBox);
 
-  /* ===== Labels ===== */
   const labels = document.createElement("div");
   labels.className = "range-labels";
 
@@ -145,10 +145,6 @@ export default function decorate(fieldDiv) {
   wrapper.appendChild(labels);
 
   input.addEventListener("input", () => {
-    if (type === "tenure") {
-      input.value = Math.round(Number(input.value));
-    }
-
     updateUI(input, wrapper, stepsArray, type);
   });
 
