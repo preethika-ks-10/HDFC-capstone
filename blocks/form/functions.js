@@ -311,22 +311,47 @@ function setButtonState(globals, fieldName, enabled) {
 
 /* ---------- OTP TIMER ---------- */
 
-function runOtpCountdown(globals) {
+function runOtpCountdown() {
   try {
-    let seconds = 30;
+    let seconds = 10;
 
     if (window.otpTimerInterval) {
       clearInterval(window.otpTimerInterval);
       window.otpTimerInterval = null;
     }
 
-    setButtonState(globals, "otp_resend_icon", false);
+    const resendBtn =
+      document.querySelector('[name="otp_resend_icon"]') ||
+      document.querySelector('.field-otp_resend_icon button') ||
+      document.querySelector('.field-otp_resend_icon');
 
-    function updateTimerText(text) {
-      setTextValue(globals, "otp_resend_timer", text);
+    const timerEl =
+      document.querySelector('[name="otp_resend_timer"]') ||
+      document.querySelector('.field-otp_resend_timer') ||
+      document.querySelector('.field-otp-resend-timer');
+
+    function setTimerText(text) {
+      if (timerEl) {
+        timerEl.value = text;
+        timerEl.textContent = text;
+
+        const innerNodes = timerEl.querySelectorAll("p, span, div, label");
+        innerNodes.forEach(function (node) {
+          node.textContent = text;
+        });
+      }
     }
 
-    updateTimerText("Resend OTP in: " + seconds + " secs");
+    function setResendState(enabled) {
+      if (resendBtn) {
+        resendBtn.disabled = !enabled;
+        resendBtn.style.pointerEvents = enabled ? "auto" : "none";
+        resendBtn.style.opacity = enabled ? "1" : "0.5";
+      }
+    }
+
+    setResendState(false);
+    setTimerText("Resend OTP in: 10 secs");
 
     window.otpTimerInterval = setInterval(function () {
       seconds--;
@@ -335,12 +360,12 @@ function runOtpCountdown(globals) {
         clearInterval(window.otpTimerInterval);
         window.otpTimerInterval = null;
 
-        updateTimerText("Resend OTP");
-        setButtonState(globals, "otp_resend_icon", true);
+        setTimerText("Resend OTP");
+        setResendState(true);
         return;
       }
 
-      updateTimerText("Resend OTP in: " + seconds + " secs");
+      setTimerText("Resend OTP in: " + seconds + " secs");
     }, 1000);
 
     return "";
@@ -349,7 +374,6 @@ function runOtpCountdown(globals) {
     return "";
   }
 }
-
 /* =====================
    GENERATE OTP
    Call in AEM rule: generateOTP(scope)
@@ -381,9 +405,9 @@ function generateOTP() {
       .then(result => {
         console.log("OTP RESULT:", result);
 
-        if (result.status === "success") {
+        if (result.status === "success" && result.otp) {
+          // reset only validation attempts
           window.otpValidationAttempts = 3;
-          window.otpResendAttempts = 3;
 
           const otpInput = document.querySelector('[name="otp_code"]');
           if (otpInput) {
@@ -391,6 +415,8 @@ function generateOTP() {
             otpInput.dispatchEvent(new Event("input", { bubbles: true }));
             otpInput.dispatchEvent(new Event("change", { bubbles: true }));
           }
+
+          runOtpCountdown();
 
           console.log("OTP generated successfully:", result.otp);
         }
@@ -405,170 +431,103 @@ function generateOTP() {
     return "";
   }
 }
-/* =====================
-   VALIDATE OTP
-   Call in AEM rule: validateOTP(scope)
-===================== */
+function normalizeDOB(value) {
+  if (!value) return "";
 
-function validateOTP(globals) {
-  try {
-    const form = getForm(globals);
+  const date = new Date(value);
 
-    if (!form) {
-      console.error("globals.form is undefined. Call validateOTP(scope), not validateOTP().");
-      return "";
-    }
-
-    const otpPanel = form.otp_page;
-    const offerPanel = form.offer_panel;
-
-    if (!otpPanel) {
-      console.error("otp_page panel not found");
-      return "";
-    }
-
-    if (!offerPanel) {
-      console.error("offer_panel not found. Check Offer Panel name.");
-      return "";
-    }
-
-    const mobile = getValue(globals, "aadhaar_linked_mobile_number");
-    const dob = getValue(globals, "date_of_birth");
-    const otp = getValue(globals, "otp_code");
-
-    if (!mobile || !dob || !otp) {
-      globals.functions.setProperty(otpPanel["success failure msg"], {
-        value: "Please enter mobile, DOB and OTP",
-        visible: true
-      });
-      return "";
-    }
-
-    if (window.otpValidationAttempts === undefined) {
-      window.otpValidationAttempts = 3;
-    }
-
-    if (window.otpValidationAttempts <= 0) {
-      globals.functions.setProperty(otpPanel["success failure msg"], {
-        value: "Maximum OTP attempts exceeded",
-        visible: true
-      });
-      return "";
-    }
-
-    fetch(OTP_BASE_URL + "/verify-otp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        mobile: mobile,
-        dob: dob,
-        otp: otp
-      })
-    })
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (response) {
-        console.log("VERIFY RESPONSE:", response);
-
-        if (response.success !== true) {
-          window.otpValidationAttempts--;
-
-          globals.functions.setProperty(otpPanel["otp_attempts_left"], {
-            value: window.otpValidationAttempts + "/3 attempt(s) left",
-            visible: true
-          });
-
-          globals.functions.setProperty(otpPanel["success failure msg"], {
-            value: response.message || "Invalid OTP",
-            visible: true
-          });
-
-          return "";
-        }
-
-        globals.functions.setProperty(otpPanel["success failure msg"], {
-          value: "OTP verified successfully",
-          visible: true
-        });
-
-        globals.functions.setProperty(otpPanel, {
-          visible: false
-        });
-
-        globals.functions.setProperty(offerPanel, {
-          visible: true
-        });
-      })
-      .catch(function (err) {
-        console.error("Verify OTP API Error:", err);
-
-        globals.functions.setProperty(otpPanel["success failure msg"], {
-          value: "Unable to verify OTP. Please try again.",
-          visible: true
-        });
-      });
-
-    return "";
-  } catch (e) {
-    console.error("validateOTP Error:", e);
-    return "";
+  if (!isNaN(date.getTime())) {
+    return date.toISOString().split("T")[0];
   }
+
+  return String(value).trim();
 }
 
+/* =====================
+   VERIFY OTP
+   Required: mobile, dob, otp
+===================== */
+
+app.post("/verify-otp", (req, res) => {
+  try {
+    const { mobile, dob, otp } = req.body;
+
+    if (!mobile || !dob || !otp) {
+      return res.status(400).json({
+        success: false,
+        message: "mobile, dob and otp are required"
+      });
+    }
+
+    const db = readDB();
+
+    const record = [...db.otpRequests].reverse().find(
+      item => String(item.mobile).trim() === String(mobile).trim()
+    );
+
+    if (!record) {
+      return res.status(404).json({
+        success: false,
+        message: "OTP record not found"
+      });
+    }
+
+    if (normalizeDOB(record.dob) !== normalizeDOB(dob)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid DOB"
+      });
+    }
+
+    if (String(record.otp).trim() !== String(otp).trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid OTP"
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: "OTP verified successfully"
+    });
+
+  } catch (err) {
+    console.error("Verify OTP error:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal error"
+    });
+  }
+});
 /* =====================
    RESEND OTP
    Call in AEM rule: resendOTP(scope)
 ===================== */
 
-function resendOTP(globals) {
+function resendOTP() {
   try {
-    const form = getForm(globals);
-
-    if (!form) {
-      console.error("globals.form is undefined. Call resendOTP(scope), not resendOTP().");
-      return "";
-    }
-
-    const otpPanel = form.otp_page;
-
-    if (!otpPanel) {
-      console.error("otp_page panel not found");
-      return "";
-    }
-
     if (window.otpResendAttempts === undefined) {
       window.otpResendAttempts = 3;
     }
 
     if (window.otpResendAttempts <= 0) {
-      globals.functions.setProperty(otpPanel["success failure msg"], {
-        value: "Maximum resend attempts reached",
-        visible: true
-      });
+      console.error("Maximum resend attempts reached");
       return "";
     }
 
     window.otpResendAttempts--;
-    window.otpValidationAttempts = 3;
 
-    globals.functions.setProperty(otpPanel.otp_code, {
-      value: ""
-    });
+    console.log(window.otpResendAttempts + "/3 resend(s) left");
 
-    globals.functions.setProperty(otpPanel["otp_attempts_left"], {
-      value: "3/3 attempt(s) left",
-      visible: true
-    });
+    const otpInput = document.querySelector('[name="otp_code"]');
+    if (otpInput) {
+      otpInput.value = "";
+      otpInput.dispatchEvent(new Event("input", { bubbles: true }));
+      otpInput.dispatchEvent(new Event("change", { bubbles: true }));
+    }
 
-    globals.functions.setProperty(otpPanel["success failure msg"], {
-      value: "",
-      visible: true
-    });
-
-    generateOTP(globals);
+    generateOTP();
 
     return "";
   } catch (e) {
@@ -576,7 +535,6 @@ function resendOTP(globals) {
     return "";
   }
 }
-
 /**
  * Fetch Review Details
  * @param {scope} globals
