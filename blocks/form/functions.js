@@ -431,75 +431,161 @@ function generateOTP() {
     return "";
   }
 }
-function normalizeDOB(value) {
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (!isNaN(date.getTime())) {
-    return date.toISOString().split("T")[0];
-  }
-
-  return String(value).trim();
-}
-
 /* =====================
-   VERIFY OTP
-   Required: mobile, dob, otp
+   VALIDATE OTP
+   Call in AEM rule: validateOTP(scope)
 ===================== */
 
-app.post("/verify-otp", (req, res) => {
+function validateOTP(globals) {
   try {
-    const { mobile, dob, otp } = req.body;
+    const form = getForm(globals);
+
+    if (!form) {
+      console.error("globals.form is undefined");
+      return "";
+    }
+
+    const otpPanel = form.otp_page;
+    const offerPanel = form.offer_panel;
+
+    if (!otpPanel) {
+      console.error("otp_page panel not found");
+      return "";
+    }
+
+    if (!offerPanel) {
+      console.error("offer_panel not found");
+      return "";
+    }
+
+    const mobile = getValue(globals, "aadhaar_linked_mobile_number");
+    const dob = getValue(globals, "date_of_birth");
+    const otp = getValue(globals, "otp_code");
+
+    console.log("VERIFY PAYLOAD:", {
+      mobile,
+      dob,
+      otp
+    });
 
     if (!mobile || !dob || !otp) {
-      return res.status(400).json({
-        success: false,
-        message: "mobile, dob and otp are required"
-      });
+      globals.functions.setProperty(
+        otpPanel["success failure msg"],
+        {
+          value: "Please enter mobile, DOB and OTP",
+          visible: true
+        }
+      );
+
+      return "";
     }
 
-    const db = readDB();
-
-    const record = [...db.otpRequests].reverse().find(
-      item => String(item.mobile).trim() === String(mobile).trim()
-    );
-
-    if (!record) {
-      return res.status(404).json({
-        success: false,
-        message: "OTP record not found"
-      });
+    if (window.otpValidationAttempts === undefined) {
+      window.otpValidationAttempts = 3;
     }
 
-    if (normalizeDOB(record.dob) !== normalizeDOB(dob)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid DOB"
-      });
+    if (window.otpValidationAttempts <= 0) {
+      globals.functions.setProperty(
+        otpPanel["success failure msg"],
+        {
+          value: "Maximum OTP attempts exceeded",
+          visible: true
+        }
+      );
+
+      return "";
     }
 
-    if (String(record.otp).trim() !== String(otp).trim()) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid OTP"
+    fetch(OTP_BASE_URL + "/verify-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        mobile: mobile,
+        dob: dob,
+        otp: otp
+      })
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (response) {
+
+        console.log("VERIFY RESPONSE:", response);
+
+        if (response.success !== true) {
+
+          window.otpValidationAttempts--;
+
+          globals.functions.setProperty(
+            otpPanel["otp_attempts_left"],
+            {
+              value:
+                window.otpValidationAttempts +
+                "/3 attempt(s) left",
+              visible: true
+            }
+          );
+
+          globals.functions.setProperty(
+            otpPanel["success failure msg"],
+            {
+              value: response.message || "Invalid OTP",
+              visible: true
+            }
+          );
+
+          return "";
+        }
+
+        globals.functions.setProperty(
+          otpPanel["success failure msg"],
+          {
+            value: "OTP verified successfully",
+            visible: true
+          }
+        );
+
+        globals.functions.setProperty(
+          otpPanel,
+          {
+            visible: false
+          }
+        );
+
+        globals.functions.setProperty(
+          offerPanel,
+          {
+            visible: true
+          }
+        );
+
+      })
+      .catch(function (err) {
+
+        console.error("Verify OTP API Error:", err);
+
+        globals.functions.setProperty(
+          otpPanel["success failure msg"],
+          {
+            value:
+              "Unable to verify OTP. Please try again.",
+            visible: true
+          }
+        );
+
       });
-    }
 
-    return res.json({
-      success: true,
-      message: "OTP verified successfully"
-    });
+    return "";
 
-  } catch (err) {
-    console.error("Verify OTP error:", err);
+  } catch (e) {
 
-    return res.status(500).json({
-      success: false,
-      message: "Internal error"
-    });
+    console.error("validateOTP Error:", e);
+
+    return "";
   }
-});
+}
 /* =====================
    RESEND OTP
    Call in AEM rule: resendOTP(scope)
