@@ -2605,6 +2605,25 @@ input {
   line-height: 14px !important;
   color: #2563eb !important;
 }
+/* OVERRIDE - FIX CUTTING OF LOAN APPLICATION NUMBER */
+.text-wrapper.field-text-input1777269877834.field-wrapper.col-12 input {
+  width: auto !important;
+  min-width: 160px !important;
+  max-width: none !important;
+
+  display: inline-block !important;
+
+  overflow: visible !important;
+  text-overflow: unset !important;
+  white-space: nowrap !important;
+
+  font-size: 20px !important;
+  line-height: 26px !important;
+  font-weight: 800 !important;
+
+  position: relative !important;
+  z-index: 2 !important;
+}
 
 
 
