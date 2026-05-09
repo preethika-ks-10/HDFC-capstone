@@ -1104,64 +1104,46 @@ body:has(.field-personal-loan-offer input[name="pan_card_or_dob_choice"][value="
   margin-top: 32px;
 }
 
-/* Important links - fixed overlap */
-.field-personal-loan-offer > .field-plain-text,
-.field-personal-loan-offer > .plain-text-wrapper {
+/* Important links only - no overlap */
+.field-personal-loan-offer > .field-plain-text.field-wrapper.col-12 {
   grid-column: 1 / 4 !important;
   grid-row: 9 !important;
 
-  display: block !important;
   width: 100% !important;
-
-  text-align: center !important;
-  color: #5f6368 !important;
-
-  margin: 18px 0 28px 0 !important;
+  margin: 18px 0 28px !important;
   padding: 0 20px !important;
 
+  display: block !important;
   position: static !important;
   float: none !important;
   clear: both !important;
 
+  text-align: center !important;
   white-space: normal !important;
   overflow: visible !important;
-  line-height: normal !important;
 }
 
-/* actual paragraph text */
-.field-personal-loan-offer > .field-plain-text p,
-.field-personal-loan-offer > .plain-text-wrapper p {
+.field-personal-loan-offer > .field-plain-text.field-wrapper.col-12 p {
   display: block !important;
-
-  width: 100% !important;
   max-width: 980px !important;
-
   margin: 0 auto !important;
   padding: 0 !important;
 
   font-size: 12px !important;
   line-height: 20px !important;
   font-weight: 400 !important;
-
   color: #5f6368 !important;
-  text-align: center !important;
 
+  text-align: center !important;
   white-space: normal !important;
   word-break: normal !important;
   overflow-wrap: normal !important;
 }
 
-.field-personal-loan-offer > .field-plain-text p,
-.field-personal-loan-offer > .plain-text-wrapper p {
-  margin: 0 auto !important;
-  padding: 0 !important;
-  max-width: 980px !important;
-  font-size: 12px !important;
-  line-height: 20px !important;
-  color: #5f6368 !important;
-  text-align: center !important;
+/* Do NOT force every plain-text-wrapper into row 9 */
+.field-personal-loan-offer > .plain-text-wrapper {
+  grid-row: auto !important;
 }
-
 /* =========================
    ESSENTIALS SECTION
 ========================= */
