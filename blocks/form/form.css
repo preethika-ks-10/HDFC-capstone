@@ -2511,6 +2511,112 @@ input {
   font-size: 13px;
   color: #6b7280;
 }
+/* =====================================================
+   FINAL FIX - LOAN APPLICATION NUMBER CARD
+===================================================== */
+
+#textinput-b92df2e3c2,
+.field-loan-application-number {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+
+  width: fit-content !important;
+
+  margin: 0 0 22px 0 !important;
+  padding: 0 !important;
+
+  position: relative !important;
+  min-height: auto !important;
+}
+
+/* remove old icon */
+#textinput-b92df2e3c2::before {
+  content: "📄" !important;
+
+  position: static !important;
+
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+
+  border-radius: 50% !important;
+  background: #f3ecff !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  color: #6d28d9 !important;
+  font-size: 16px !important;
+
+  margin: 0 !important;
+}
+
+/* wrapper */
+#textinput-b92df2e3c2 .field-wrapper,
+.field-loan-application-number .field-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+
+  width: auto !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* label */
+#textinput-b92df2e3c2 label,
+.field-loan-application-number label {
+  display: block !important;
+
+  margin: 0 0 4px 0 !important;
+  padding: 0 !important;
+
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  font-weight: 500 !important;
+
+  color: #9ca3af !important;
+}
+
+/* value */
+#textinput-b92df2e3c2 input,
+.field-loan-application-number input {
+  display: block !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+
+  font-size: 32px !important;
+  line-height: 1 !important;
+  font-weight: 800 !important;
+
+  color: #111827 !important;
+
+  pointer-events: none !important;
+}
+
+/* copy icon */
+#textinput-b92df2e3c2::after {
+  content: "⧉" !important;
+
+  position: static !important;
+
+  margin-left: 8px !important;
+
+  color: #2563eb !important;
+  font-size: 16px !important;
+}
 
 
 
