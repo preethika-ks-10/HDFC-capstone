@@ -798,16 +798,21 @@ main .form form select[multiple] {
    HDFC PERSONAL LOAN OFFER - FINAL FULL CSS
    Full replacement CSS
 ===================================================== */
+/* =========================
+   PERSONAL LOAN OFFER PANEL
+   Scoped safe final CSS
+========================= */
 
-/* -----------------------------------------------------
-   ROOT
------------------------------------------------------ */
 .field-personal-loan-offer {
-  background: #ffffff !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  padding: 30px 18px !important;
+  background: #fff !important;
+  display: grid !important;
+  grid-template-columns: 360px 360px 360px !important;
+  column-gap: 28px !important;
+  row-gap: 12px !important;
+  box-sizing: border-box !important;
   font-family: Arial, Helvetica, sans-serif !important;
 }
 
@@ -817,577 +822,480 @@ main .form form select[multiple] {
   box-sizing: border-box !important;
 }
 
-/* -----------------------------------------------------
-   MAIN TITLE
------------------------------------------------------ */
-.field-personal-loan-offer > legend.field-label,
-.field-personal-loan-offer > .field-label {
-  display: block !important;
-  margin: 0 0 14px 0 !important;
-  padding: 0 !important;
-  color: #14233b !important;
-  font-size: 14px !important;
-  line-height: 1.35 !important;
+.field-personal-loan-offer > legend,
+.field-personal-loan-offer > legend.field-label {
+  grid-column: 1 / 4 !important;
+  grid-row: 1 !important;
+  font-size: 18px !important;
   font-weight: 700 !important;
+  color: #071b45 !important;
+  margin: 0 0 20px 0 !important;
+  padding: 0 !important;
   border: 0 !important;
   background: transparent !important;
 }
 
-/* -----------------------------------------------------
-   COMMON SPACING
------------------------------------------------------ */
-.field-personal-loan-offer > .field-wrapper,
-.field-personal-loan-offer > .text-wrapper,
-.field-personal-loan-offer > .date-wrapper,
-.field-personal-loan-offer > .checkbox-wrapper,
-.field-personal-loan-offer > .radio-group-wrapper,
-.field-personal-loan-offer > .button-wrapper,
-.field-personal-loan-offer > .submit-wrapper,
-.field-personal-loan-offer > .plain-text-wrapper {
-  margin-bottom: 12px !important;
-}
-
-/* -----------------------------------------------------
-   LABELS
------------------------------------------------------ */
-.field-personal-loan-offer label,
-.field-personal-loan-offer .field-label:not(legend) {
-  color: #22324a !important;
-  font-size: 12px !important;
-  line-height: 1.35 !important;
-  font-weight: 600 !important;
-}
-
-/* -----------------------------------------------------
-   INPUTS
------------------------------------------------------ */
-.field-personal-loan-offer input[type="text"],
-.field-personal-loan-offer input[type="tel"],
-.field-personal-loan-offer input[type="email"],
-.field-personal-loan-offer input[type="number"],
-.field-personal-loan-offer input[type="date"],
-.field-personal-loan-offer select,
-.field-personal-loan-offer textarea {
-  width: 100% !important;
-  height: 36px !important;
-  border: 1px solid #d9e0ec !important;
-  border-radius: 8px !important;
-  background: #ffffff !important;
-  box-shadow: none !important;
-  outline: none !important;
-  color: #344256 !important;
-  font-size: 12px !important;
-  padding: 0 14px !important;
-}
-
-.field-personal-loan-offer input::placeholder,
-.field-personal-loan-offer textarea::placeholder {
-  color: #9ba5b7 !important;
-  opacity: 1 !important;
-}
-
-/* -----------------------------------------------------
-   PAN / DOB RADIO GROUP
------------------------------------------------------ */
+/* PAN / DOB radio */
+.field-personal-loan-offer .field-pan-card-or-dob-choice,
 .field-personal-loan-offer .field-id-type {
+  grid-column: 1 / 3 !important;
+  grid-row: 2 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 40px !important;
+  margin: 0 0 18px 0 !important;
+}
+
+.field-personal-loan-offer .field-pan-card-or-dob-choice .radio-wrapper,
+.field-personal-loan-offer .field-id-type .radio-wrapper,
+.field-personal-loan-offer .field-id-type label {
   display: flex !important;
   align-items: center !important;
-  gap: 24px !important;
-  min-height: 28px !important;
-  margin-bottom: 8px !important;
-}
-
-.field-personal-loan-offer .field-id-type label,
-.field-personal-loan-offer .field-id-type .option-wrapper,
-.field-personal-loan-offer .field-id-type .radio-option {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 7px !important;
+  gap: 8px !important;
   margin: 0 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  color: #2f3d53 !important;
-  line-height: 1.2 !important;
 }
 
-/* -----------------------------------------------------
-   RADIOS
------------------------------------------------------ */
-.field-personal-loan-offer input[type="radio"] {
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  width: 15px !important;
-  height: 15px !important;
-  min-width: 15px !important;
-  border: 1.5px solid #bcc6d8 !important;
-  border-radius: 50% !important;
-  background: #fff !important;
-  margin: 0 !important;
-  position: relative !important;
-  vertical-align: middle !important;
-  cursor: pointer !important;
-}
-
-.field-personal-loan-offer input[type="radio"]:checked {
-  border-color: #4e6ff1 !important;
-}
-
-.field-personal-loan-offer input[type="radio"]:checked::after {
-  content: "" !important;
-  position: absolute !important;
-  width: 7px !important;
-  height: 7px !important;
-  border-radius: 50% !important;
-  background: #4e6ff1 !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-}
-
-/* -----------------------------------------------------
-   MOBILE FIELD
------------------------------------------------------ */
+/* Mobile */
 .field-personal-loan-offer .field-aadhaar-linked-mobile-number {
+  grid-column: 1 !important;
+  grid-row: 3 !important;
+  width: 360px !important;
   position: relative !important;
-  background-image: linear-gradient(#dce3ee, #dce3ee) !important;
-  background-repeat: no-repeat !important;
-  background-size: 1px 15px !important;
-  background-position: 70px 18px !important;
+  margin: 0 !important;
 }
 
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .iti,
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .iti__flag-container,
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .iti__selected-flag,
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .country-code,
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .country-prefix,
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .prefix,
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .selected-dial-code {
-  opacity: 0 !important;
-  pointer-events: none !important;
+.field-personal-loan-offer .field-aadhaar-linked-mobile-number label {
+  display: none !important;
 }
 
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number input[type="tel"],
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number input[type="text"] {
-  padding-left: 88px !important;
+.field-personal-loan-offer .field-aadhaar-linked-mobile-number input {
+  width: 360px !important;
+  height: 44px !important;
+  border: 1px solid #d8dfea !important;
+  border-radius: 8px !important;
+  padding: 0 16px 0 78px !important;
+  box-sizing: border-box !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  background: #fff !important;
 }
 
 .field-personal-loan-offer .field-aadhaar-linked-mobile-number::before {
   content: "" !important;
   position: absolute !important;
-  left: 17px !important;
-  top: 18px !important;
-  transform: translateY(-50%) !important;
-  width: 16px !important;
-  height: 11px !important;
-  border: 1px solid #d9dfe9 !important;
-  border-radius: 1px !important;
-  background: linear-gradient(
-    to bottom,
-    #ff9933 0 33.33%,
-    #ffffff 33.33% 66.66%,
-    #138808 66.66% 100%
-  ) !important;
-  z-index: 2 !important;
+  left: 14px !important;
+  top: 19px !important;
+  width: 22px !important;
+  height: 15px !important;
+  background: url("https://flagcdn.com/w40/in.png") center / cover no-repeat !important;
+  z-index: 9 !important;
   pointer-events: none !important;
 }
 
 .field-personal-loan-offer .field-aadhaar-linked-mobile-number::after {
   content: "+91" !important;
   position: absolute !important;
-  left: 41px !important;
-  top: 18px !important;
-  transform: translateY(-50%) !important;
-  color: #5f6c81 !important;
-  font-size: 11px !important;
-  font-weight: 500 !important;
-  line-height: 1 !important;
-  z-index: 2 !important;
+  left: 40px !important;
+  top: 19px !important;
+  font-size: 13px !important;
+  color: #071b45 !important;
+  z-index: 9 !important;
   pointer-events: none !important;
 }
 
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .description,
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number .help-text,
-.field-personal-loan-offer .field-aadhaar-linked-mobile-number [class*="description"] {
-  margin-top: 6px !important;
-  color: #6c7a90 !important;
-  font-size: 11px !important;
-  line-height: 1.35 !important;
-  font-weight: 400 !important;
-}
-
-/* -----------------------------------------------------
-   DOB FIELD
------------------------------------------------------ */
+/* DOB */
 .field-personal-loan-offer .field-date-of-birth {
-  position: relative !important;
+  grid-column: 2 !important;
+  grid-row: 3 !important;
+  width: 360px !important;
+  margin: 0 !important;
 }
 
-.field-personal-loan-offer .field-date-of-birth input[type="text"],
-.field-personal-loan-offer .field-date-of-birth input[type="date"] {
-  padding-right: 34px !important;
+.field-personal-loan-offer .field-date-of-birth label {
+  display: none !important;
 }
 
-.field-personal-loan-offer .field-date-of-birth::after {
-  content: "🗓" !important;
-  position: absolute !important;
-  right: 10px !important;
-  top: 18px !important;
-  transform: translateY(-50%) !important;
-  font-size: 12px !important;
-  color: #8a95a6 !important;
-  pointer-events: none !important;
+.field-personal-loan-offer .field-date-of-birth input {
+  width: 360px !important;
+  height: 44px !important;
+  border: 1px solid #d8dfea !important;
+  border-radius: 8px !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  background: #fff !important;
 }
 
-/* -----------------------------------------------------
-   SOURCE OF INCOME
------------------------------------------------------ */
+/* PAN */
+.field-personal-loan-offer .field-pan-card-number {
+  grid-column: 2 !important;
+  grid-row: 3 !important;
+  width: 360px !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+.field-personal-loan-offer .field-pan-card-number label {
+  display: none !important;
+}
+
+.field-personal-loan-offer .field-pan-card-number input {
+  width: 360px !important;
+  height: 44px !important;
+  border: 1px solid #d8dfea !important;
+  border-radius: 8px !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+}
+
+/* PAN / DOB toggle */
+body:has(.field-personal-loan-offer input[name="pan_card_or_dob_choice"][value="pan_card"]:checked)
+  .field-personal-loan-offer .field-date-of-birth {
+  display: none !important;
+}
+
+body:has(.field-personal-loan-offer input[name="pan_card_or_dob_choice"][value="date_of_birth"]:checked)
+  .field-personal-loan-offer .field-pan-card-number {
+  display: none !important;
+}
+
+/* Source of income */
 .field-personal-loan-offer .field-source-of-income {
-  display: block !important;
+  grid-column: 3 !important;
+  grid-row: 2 / 5 !important;
+  width: 360px !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.field-personal-loan-offer .field-source-of-income > .field-label,
-.field-personal-loan-offer .field-source-of-income legend,
-.field-personal-loan-offer .field-source-of-income .group-label {
-  display: block !important;
-  margin: 0 0 10px 0 !important;
-  color: #2b3950 !important;
-  font-size: 12px !important;
-  line-height: 1.3 !important;
+.field-personal-loan-offer .field-source-of-income legend {
+  font-size: 15px !important;
   font-weight: 700 !important;
+  color: #071b45 !important;
+  margin: 0 0 18px 0 !important;
 }
 
-.field-personal-loan-offer .field-source-of-income label,
-.field-personal-loan-offer .field-source-of-income .option-wrapper,
-.field-personal-loan-offer .field-source-of-income .radio-option {
+.field-personal-loan-offer .field-source-of-income .radio-wrapper {
   display: flex !important;
   align-items: center !important;
-  gap: 8px !important;
-  margin: 0 0 12px 0 !important;
-  color: #2d3b51 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  line-height: 1.2 !important;
-}
-
-/* hide brown note */
-.field-personal-loan-offer .field-income-verification-note,
-#text-bc88f17c57,
-.field-personal-loan-offer .field-income-verification-note *,
-#text-bc88f17c57 * {
-  display: none !important;
-}
-
-/* -----------------------------------------------------
-   CHECKBOXES
------------------------------------------------------ */
-.field-personal-loan-offer .field-consent-data-collection,
-.field-personal-loan-offer .field-consent-marketing {
-  position: relative !important;
-  margin-bottom: 10px !important;
-  min-height: 14px !important;
-}
-
-.field-personal-loan-offer .field-consent-data-collection input[type="checkbox"],
-.field-personal-loan-offer .field-consent-marketing input[type="checkbox"] {
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  position: absolute !important;
-  left: 0 !important;
-  top: 2px !important;
-  width: 13px !important;
-  height: 13px !important;
-  min-width: 13px !important;
-  border: 1px solid #c8cfdb !important;
-  border-radius: 2px !important;
-  background: #ffffff !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  cursor: pointer !important;
-}
-
-.field-personal-loan-offer .field-consent-data-collection input[type="checkbox"]:checked,
-.field-personal-loan-offer .field-consent-marketing input[type="checkbox"]:checked {
-  background: #4d6ff0 !important;
-  border-color: #4d6ff0 !important;
-}
-
-.field-personal-loan-offer .field-consent-data-collection input[type="checkbox"]:checked::after,
-.field-personal-loan-offer .field-consent-marketing input[type="checkbox"]:checked::after {
-  content: "" !important;
-  position: absolute !important;
-  left: 3px !important;
-  top: 0px !important;
-  width: 3px !important;
-  height: 7px !important;
-  border: solid #ffffff !important;
-  border-width: 0 1.5px 1.5px 0 !important;
-  transform: rotate(45deg) !important;
-}
-
-.field-personal-loan-offer .field-consent-data-collection label,
-.field-personal-loan-offer .field-consent-marketing label,
-.field-personal-loan-offer .checkbox-wrapper label,
-.field-personal-loan-offer label.checkbox-label {
-  display: block !important;
-  margin: 0 !important;
-  padding-left: 22px !important;
-  color: #4d5b71 !important;
-  font-size: 11px !important;
-  line-height: 1.38 !important;
-  font-weight: 400 !important;
-}
-
-/* -----------------------------------------------------
-   TERMS / PRIVACY - broken html rebuilt cleanly
------------------------------------------------------ */
-#text-577fdb213b,
-.field-personal-loan-offer .field-terms-privacy-text {
-  position: relative !important;
-  min-height: 18px !important;
-  margin: 8px 0 14px 0 !important;
-  color: transparent !important;
-  font-size: 0 !important;
-  line-height: 0 !important;
-  overflow: hidden !important;
-}
-
-#text-577fdb213b *,
-.field-personal-loan-offer .field-terms-privacy-text * {
-  display: none !important;
-}
-
-#text-577fdb213b::before,
-.field-personal-loan-offer .field-terms-privacy-text::before {
-  content: "For full details read our " !important;
-  position: absolute !important;
-  left: 0 !important;
-  top: 0 !important;
-  color: #4f5d73 !important;
-  font-size: 11px !important;
-  line-height: 1.42 !important;
-  font-weight: 400 !important;
-}
-
-#text-577fdb213b::after,
-.field-personal-loan-offer .field-terms-privacy-text::after {
-  content: "Terms & Conditions & Privacy Policy." !important;
-  position: absolute !important;
-  left: 114px !important;
-  top: 0 !important;
-  color: #4367e0 !important;
-  font-size: 11px !important;
-  line-height: 1.42 !important;
-  font-weight: 600 !important;
-}
-
-/* -----------------------------------------------------
-   GENERIC LINKS
------------------------------------------------------ */
-.field-personal-loan-offer a {
-  color: #4367e0 !important;
-  text-decoration: none !important;
-}
-
-.field-personal-loan-offer a:hover {
-  text-decoration: underline !important;
-}
-
-/* -----------------------------------------------------
-   BUTTON
------------------------------------------------------ */
-#submit-1bd2ae79f4,
-.field-personal-loan-offer .field-view-loan-eligibility {
-  margin: 10px 0 22px 0 !important;
-}
-
-#submit-1bd2ae79f4 button,
-#submit-1bd2ae79f4 input[type="submit"],
-.field-personal-loan-offer .field-view-loan-eligibility button,
-.field-personal-loan-offer .field-view-loan-eligibility input[type="submit"] {
-  min-width: 178px !important;
-  height: 42px !important;
-  border: 0 !important;
-  border-radius: 10px !important;
-  background: #b8c6ff !important;
-  color: #ffffff !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  box-shadow: none !important;
-  padding: 0 18px !important;
-  line-height: 42px !important;
-  text-align: center !important;
-  cursor: pointer !important;
-}
-
-#submit-1bd2ae79f4 button::after,
-#submit-1bd2ae79f4 input[type="submit"]::after,
-.field-personal-loan-offer .field-view-loan-eligibility button::after,
-.field-personal-loan-offer .field-view-loan-eligibility input[type="submit"]::after {
-  content: "›" !important;
-  display: inline-block !important;
-  margin-left: 8px !important;
-  font-size: 15px !important;
-  vertical-align: middle !important;
-}
-
-/* =====================================================
-   ESSENTIALS SECTION - HARD FIX
-===================================================== */
-
-#panelcontainer-92ea7ca441 {
-  margin-top: 20px !important;
-  padding-top: 18px !important;
-  border-top: 1px solid #e7ebf3 !important;
-
-  display: grid !important;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-  column-gap: 32px !important;
-  row-gap: 18px !important;
-  align-items: start !important;
-}
-
-/* top help line */
-#panelcontainer-92ea7ca441::before {
-  content: 'Important links related to Product Features, Customer Care, Sachet Portal, Privacy Policy, GRO Details and RBI CMS Portal can be accessed in the "Help" section above.' !important;
-  display: block !important;
-  grid-column: 1 / -1 !important;
-  text-align: center !important;
-  color: #666666 !important;
-  font-size: 10px !important;
-  line-height: 1.45 !important;
-  margin: 0 0 4px 0 !important;
-}
-
-/* heading */
-#panelcontainer-92ea7ca441 > legend.field-label {
-  grid-column: 1 / -1 !important;
-  margin: 0 !important;
-  color: #1f2b3d !important;
-  font-size: 14px !important;
-  line-height: 1.35 !important;
-  font-weight: 700 !important;
-}
-
-/* reset all 4 item wrappers */
-#panelcontainer-92ea7ca441 > .field-essential-mobile-phone,
-#panelcontainer-92ea7ca441 > .field-essential-pan-card,
-#panelcontainer-92ea7ca441 > .field-essential-date-of-birth,
-#panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details {
-  position: relative !important;
-  margin: 0 !important;
-  padding: 0 0 0 24px !important;
-  min-width: 0 !important;
-  max-width: none !important;
+  gap: 12px !important;
+  margin: 0 0 18px 0 !important;
+  padding: 0 !important;
   width: 100% !important;
 }
 
-/* pin each item to its own column */
-#panelcontainer-92ea7ca441 > .field-essential-mobile-phone {
-  grid-column: 1 !important;
-}
-
-#panelcontainer-92ea7ca441 > .field-essential-pan-card {
-  grid-column: 2 !important;
-}
-
-#panelcontainer-92ea7ca441 > .field-essential-date-of-birth {
-  grid-column: 3 !important;
-}
-
-#panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details {
-  grid-column: 4 !important;
-}
-
-/* text */
-#panelcontainer-92ea7ca441 > .field-essential-mobile-phone p,
-#panelcontainer-92ea7ca441 > .field-essential-pan-card p,
-#panelcontainer-92ea7ca441 > .field-essential-date-of-birth p,
-#panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details p {
+.field-personal-loan-offer .field-source-of-income .radio-wrapper input[type="radio"] {
   margin: 0 !important;
-  color: #3359d7 !important;
-  font-size: 11px !important;
-  line-height: 1.28 !important;
-  font-weight: 700 !important;
-  white-space: normal !important;
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
 }
 
-/* make last item wrap neatly */
-#panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details p {
-  max-width: 150px !important;
+.field-personal-loan-offer .field-source-of-income .radio-wrapper label {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  color: #4b5563 !important;
+  white-space: nowrap !important;
+}
+
+/* OTP note */
+.field-personal-loan-offer .field-otp-note {
+  grid-column: 1 !important;
+  grid-row: 4 !important;
+  width: 360px !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  color: #46546b !important;
+}
+
+.field-personal-loan-offer .field-income-verification-note {
+  display: none !important;
+}
+
+/* Consent */
+.field-personal-loan-offer .field-consent-processing-data,
+.field-personal-loan-offer .field-consent-data-collection {
+  grid-column: 1 / 4 !important;
+  grid-row: 5 !important;
+  margin-top: 22px !important;
+}
+
+.field-personal-loan-offer .field-consent-marketing {
+  grid-column: 1 / 4 !important;
+  grid-row: 6 !important;
+  margin-top: 8px !important;
+}
+
+.field-personal-loan-offer .field-consent-processing-data,
+.field-personal-loan-offer .field-consent-data-collection,
+.field-personal-loan-offer .field-consent-marketing {
+  display: grid !important;
+  grid-template-columns: 18px 1fr !important;
+  column-gap: 12px !important;
+  align-items: start !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  color: #071b45 !important;
+}
+
+.field-personal-loan-offer .field-consent-processing-data input,
+.field-personal-loan-offer .field-consent-data-collection input,
+.field-personal-loan-offer .field-consent-marketing input {
+  margin: 3px 0 0 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.field-personal-loan-offer .field-consent-processing-data label,
+.field-personal-loan-offer .field-consent-data-collection label,
+.field-personal-loan-offer .field-consent-marketing label {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Terms */
+.field-personal-loan-offer .field-terms-privacy-text {
+  grid-column: 1 / 4 !important;
+  grid-row: 7 !important;
+  margin-top: 12px !important;
+  font-size: 14px !important;
+  color: #071b45 !important;
+}
+
+.field-personal-loan-offer .field-terms-privacy-text a {
+  color: #0057ff !important;
+  text-decoration: none !important;
+}
+
+/* Button */
+.field-personal-loan-offer .field-view-loan-eligibility {
+  grid-column: 1 / 4 !important;
+  grid-row: 8 !important;
+  margin-top: 28px !important;
+}
+
+.field-personal-loan-offer .field-view-loan-eligibility button,
+.field-personal-loan-offer .field-view-loan-eligibility input[type="submit"] {
+  width: 290px !important;
+  height: 54px !important;
+  border: 0 !important;
+  border-radius: 7px !important;
+  background: #5c6ff5 !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+.field-personal-loan-offer .field-view-loan-eligibility button:disabled,
+.field-personal-loan-offer .field-view-loan-eligibility input[type="submit"]:disabled {
+  background: #ecebe6 !important;
+  color: #9ca0aa !important;
+}
+
+.field-personal-loan-offer .field-view-loan-eligibility::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: #d9dce5;
+  margin-top: 32px;
+}
+
+/* Important links */
+.field-personal-loan-offer > .field-plain-text,
+.field-personal-loan-offer > .plain-text-wrapper {
+  grid-column: 1 / 4 !important;
+  grid-row: 9 !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  color: #071b45 !important;
+  margin: 8px 0 22px 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  float: none !important;
+  clear: both !important;
+}
+
+.field-personal-loan-offer > .field-plain-text p,
+.field-personal-loan-offer > .plain-text-wrapper p {
+  margin: 0 auto !important;
+  padding: 0 !important;
+  max-width: 980px !important;
+  font-size: 12px !important;
+  line-height: 20px !important;
+  color: #5f6368 !important;
+  text-align: center !important;
+}
+
+/* =========================
+   ESSENTIALS SECTION
+========================= */
+
+#panelcontainer-92ea7ca441,
+.field-personal-loan-offer > .field-essentials-for-the-journey {
+  grid-column: 1 / 4 !important;
+  grid-row: 10 !important;
+  position: relative !important;
+  width: 100% !important;
+  height: 100px !important;
+  margin-top: 0 !important;
+  padding: 10px 0 0 0 !important;
+  display: block !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+#panelcontainer-92ea7ca441 > legend,
+#panelcontainer-92ea7ca441 > legend.field-label,
+.field-personal-loan-offer > .field-essentials-for-the-journey > legend {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #071b45 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#panelcontainer-92ea7ca441 .plain-text-wrapper,
+.field-personal-loan-offer .field-essentials-for-the-journey .plain-text-wrapper {
+  position: absolute !important;
+  top: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+}
+
+#panelcontainer-92ea7ca441 .plain-text-wrapper p,
+.field-personal-loan-offer .field-essentials-for-the-journey .plain-text-wrapper p {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  color: #071b45 !important;
+  white-space: nowrap !important;
+}
+
+/* exact horizontal positions */
+#panelcontainer-92ea7ca441 .field-essential-mobile-phone,
+.field-personal-loan-offer .field-essential-mobile-phone {
+  left: 0 !important;
+}
+
+#panelcontainer-92ea7ca441 .field-essential-pan-card,
+.field-personal-loan-offer .field-essential-pan-card {
+  left: 280px !important;
+}
+
+#panelcontainer-92ea7ca441 .field-essential-date-of-birth,
+.field-personal-loan-offer .field-essential-date-of-birth {
+  left: 560px !important;
+}
+
+#panelcontainer-92ea7ca441 .field-essential-cheque-book-bank-account-details,
+.field-personal-loan-offer .field-essential-cheque-book-bank-account-details {
+  left: 840px !important;
 }
 
 /* icons */
-#panelcontainer-92ea7ca441 > .field-essential-mobile-phone::before,
-#panelcontainer-92ea7ca441 > .field-essential-pan-card::before,
-#panelcontainer-92ea7ca441 > .field-essential-date-of-birth::before,
-#panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details::before {
-  position: absolute !important;
-  left: 4px !important;
-  top: 1px !important;
-  color: #8f98aa !important;
-  font-size: 12px !important;
-  line-height: 1 !important;
+#panelcontainer-92ea7ca441 .field-essential-mobile-phone::before,
+.field-personal-loan-offer .field-essential-mobile-phone::before {
+  content: "☎" !important;
 }
 
-#panelcontainer-92ea7ca441 > .field-essential-mobile-phone::before {
-  content: "📱" !important;
+#panelcontainer-92ea7ca441 .field-essential-pan-card::before,
+.field-personal-loan-offer .field-essential-pan-card::before {
+  content: "▣" !important;
 }
 
-#panelcontainer-92ea7ca441 > .field-essential-pan-card::before {
-  content: "🪪" !important;
+#panelcontainer-92ea7ca441 .field-essential-date-of-birth::before,
+.field-personal-loan-offer .field-essential-date-of-birth::before {
+  content: "▦" !important;
 }
 
-#panelcontainer-92ea7ca441 > .field-essential-date-of-birth::before {
-  content: "🗓" !important;
+#panelcontainer-92ea7ca441 .field-essential-cheque-book-bank-account-details::before,
+.field-personal-loan-offer .field-essential-cheque-book-bank-account-details::before {
+  content: "▤" !important;
 }
 
-#panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details::before {
-  content: "🧾" !important;
+#panelcontainer-92ea7ca441 .plain-text-wrapper::before,
+.field-personal-loan-offer .field-essentials-for-the-journey .plain-text-wrapper::before {
+  font-size: 14px !important;
+  color: #777 !important;
 }
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 768px) {
-  #panelcontainer-92ea7ca441 {
+  .field-personal-loan-offer {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
-  #panelcontainer-92ea7ca441 > .field-essential-mobile-phone,
-  #panelcontainer-92ea7ca441 > .field-essential-pan-card,
-  #panelcontainer-92ea7ca441 > .field-essential-date-of-birth,
-  #panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details {
-    grid-column: auto !important;
+  .field-personal-loan-offer > legend,
+  .field-personal-loan-offer .field-pan-card-or-dob-choice,
+  .field-personal-loan-offer .field-id-type,
+  .field-personal-loan-offer .field-source-of-income,
+  .field-personal-loan-offer .field-consent-processing-data,
+  .field-personal-loan-offer .field-consent-data-collection,
+  .field-personal-loan-offer .field-consent-marketing,
+  .field-personal-loan-offer .field-terms-privacy-text,
+  .field-personal-loan-offer .field-view-loan-eligibility,
+  .field-personal-loan-offer > .field-plain-text,
+  .field-personal-loan-offer > .plain-text-wrapper,
+  #panelcontainer-92ea7ca441,
+  .field-personal-loan-offer > .field-essentials-for-the-journey {
+    grid-column: 1 / -1 !important;
   }
 
-  #panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details p {
-    max-width: none !important;
+  .field-personal-loan-offer .field-aadhaar-linked-mobile-number,
+  .field-personal-loan-offer .field-date-of-birth,
+  .field-personal-loan-offer .field-pan-card-number,
+  .field-personal-loan-offer .field-source-of-income {
+    width: 100% !important;
+  }
+
+  .field-personal-loan-offer .field-aadhaar-linked-mobile-number input,
+  .field-personal-loan-offer .field-date-of-birth input,
+  .field-personal-loan-offer .field-pan-card-number input {
+    width: 100% !important;
+  }
+
+  #panelcontainer-92ea7ca441,
+  .field-personal-loan-offer > .field-essentials-for-the-journey {
+    height: auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    row-gap: 16px !important;
+    padding-top: 40px !important;
+  }
+
+  #panelcontainer-92ea7ca441 .plain-text-wrapper,
+  .field-personal-loan-offer .field-essentials-for-the-journey .plain-text-wrapper {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
   }
 }
 
-@media (max-width: 768px) {
-  #panelcontainer-92ea7ca441 > .field-essential-mobile-phone,
-  #panelcontainer-92ea7ca441 > .field-essential-pan-card,
-  #panelcontainer-92ea7ca441 > .field-essential-date-of-birth,
-  #panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details {
-    flex: 0 0 50% !important;
-    max-width: 50% !important;
-    padding-right: 10px !important;
-    margin-bottom: 12px !important;
+@media (max-width: 480px) {
+  .field-personal-loan-offer {
+    grid-template-columns: 1fr !important;
   }
 
-  #panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details p {
-    max-width: none !important;
-  }
-}
-/* -----------------------------------------------------
-   RESPONSIVE
------------------------------------------------------ */
-@media (max-width: 768px) {
-  #panelcontainer-92ea7ca441 > .field-essential-mobile-phone,
-  #panelcontainer-92ea7ca441 > .field-essential-pan-card,
-  #panelcontainer-92ea7ca441 > .field-essential-date-of-birth,
-  #panelcontainer-92ea7ca441 > .field-essential-cheque-book-bank-account-details {
-    flex: 0 0 50% !important;
-    max-width: 50% !important;
-    margin-bottom: 12px !important;
+  #panelcontainer-92ea7ca441,
+  .field-personal-loan-offer > .field-essentials-for-the-journey {
+    grid-template-columns: 1fr !important;
   }
 }
 
