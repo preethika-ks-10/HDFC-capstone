@@ -2511,20 +2511,23 @@ input {
   font-size: 13px;
   color: #6b7280;
 }
-/* FINAL COMPACT LOAN APPLICATION NUMBER */
+/* FINAL FIX - no cutting, compact aligned */
 .text-wrapper.field-text-input1777269877834.field-wrapper.col-12 {
   display: grid !important;
-  grid-template-columns: 42px auto 16px !important;
-  grid-template-rows: 14px 24px !important;
+  grid-template-columns: 42px max-content 18px !important;
+  grid-template-rows: 13px 26px !important;
   column-gap: 10px !important;
   row-gap: 2px !important;
 
   align-items: center !important;
 
   width: max-content !important;
+  max-width: none !important;
+
   margin: 0 0 18px 0 !important;
   padding: 0 !important;
 
+  overflow: visible !important;
   position: relative !important;
 }
 
@@ -2545,7 +2548,6 @@ input {
   justify-content: center !important;
 
   font-size: 15px !important;
-  margin: 0 !important;
 }
 
 /* label */
@@ -2559,27 +2561,35 @@ input {
   font-size: 10px !important;
   line-height: 12px !important;
   color: #9ca3af !important;
+
+  white-space: nowrap !important;
 }
 
-/* value */
+/* number */
 .text-wrapper.field-text-input1777269877834.field-wrapper.col-12 input {
   grid-column: 2 !important;
   grid-row: 2 !important;
 
-  width: 100px !important;
-  max-width: 100px !important;
+  width: 120px !important;
+  min-width: 120px !important;
+  max-width: none !important;
+
+  height: 26px !important;
+  min-height: 26px !important;
 
   margin: 0 !important;
   padding: 0 !important;
 
   font-size: 20px !important;
-  line-height: 22px !important;
+  line-height: 26px !important;
   font-weight: 800 !important;
   color: #111827 !important;
 
   border: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
+
+  overflow: visible !important;
 }
 
 /* copy icon */
@@ -2590,16 +2600,10 @@ input {
   grid-row: 2 !important;
 
   position: static !important;
-  margin: 0 !important;
 
   font-size: 14px !important;
   line-height: 14px !important;
   color: #2563eb !important;
-}
-
-/* reduce note gap */
-#text-d442ce99b2 {
-  margin-top: 6px !important;
 }
 
 
