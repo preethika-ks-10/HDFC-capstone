@@ -1104,20 +1104,51 @@ body:has(.field-personal-loan-offer input[name="pan_card_or_dob_choice"][value="
   margin-top: 32px;
 }
 
-/* Important links */
+/* Important links - fixed overlap */
 .field-personal-loan-offer > .field-plain-text,
 .field-personal-loan-offer > .plain-text-wrapper {
   grid-column: 1 / 4 !important;
   grid-row: 9 !important;
+
   display: block !important;
   width: 100% !important;
+
   text-align: center !important;
-  color: #071b45 !important;
-  margin: 8px 0 22px 0 !important;
-  padding: 0 !important;
+  color: #5f6368 !important;
+
+  margin: 18px 0 28px 0 !important;
+  padding: 0 20px !important;
+
   position: static !important;
   float: none !important;
   clear: both !important;
+
+  white-space: normal !important;
+  overflow: visible !important;
+  line-height: normal !important;
+}
+
+/* actual paragraph text */
+.field-personal-loan-offer > .field-plain-text p,
+.field-personal-loan-offer > .plain-text-wrapper p {
+  display: block !important;
+
+  width: 100% !important;
+  max-width: 980px !important;
+
+  margin: 0 auto !important;
+  padding: 0 !important;
+
+  font-size: 12px !important;
+  line-height: 20px !important;
+  font-weight: 400 !important;
+
+  color: #5f6368 !important;
+  text-align: center !important;
+
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
 }
 
 .field-personal-loan-offer > .field-plain-text p,
