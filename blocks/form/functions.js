@@ -499,91 +499,71 @@ function validateOTP(globals) {
 ===================== */
 
 function resendOTP() {
-
   try {
-
     if (window.otpResendAttempts === undefined) {
       window.otpResendAttempts = 3;
     }
 
-    /* Max attempts */
+    const errorField =
+      document.querySelector('[name="success_failure_msg"]');
+
+    const attemptsField =
+      document.querySelector('[name="otp_attempts_left"]');
+
+    const otpInput =
+      document.querySelector('[name="otp_code"]');
+
     if (window.otpResendAttempts <= 0) {
-
-      const errorField =
-        document.querySelector('[name="success_failure_msg"]');
-
       if (errorField) {
-
         errorField.value = "Maximum resend attempts reached";
 
-        errorField.dispatchEvent(
-          new Event("input", { bubbles: true })
-        );
+        errorField.dispatchEvent(new Event("input", { bubbles: true }));
+        errorField.dispatchEvent(new Event("change", { bubbles: true }));
 
-        errorField.dispatchEvent(
-          new Event("change", { bubbles: true })
-        );
+        const errorWrapper =
+          errorField.closest(".field-wrapper") ||
+          errorField.closest("div");
+
+        if (errorWrapper) {
+          errorWrapper.style.display = "block";
+        }
       }
 
       return "";
     }
 
-    /* Decrease attempts */
     window.otpResendAttempts--;
 
-    /* Update attempts text */
-    const attemptsField =
-      document.querySelector('[name="otp_attempts_left"]');
-
     if (attemptsField) {
-
       attemptsField.value =
         window.otpResendAttempts + "/3 resend(s) left";
 
-      attemptsField.dispatchEvent(
-        new Event("input", { bubbles: true })
-      );
-
-      attemptsField.dispatchEvent(
-        new Event("change", { bubbles: true })
-      );
+      attemptsField.dispatchEvent(new Event("input", { bubbles: true }));
+      attemptsField.dispatchEvent(new Event("change", { bubbles: true }));
     }
-
-    /* Clear OTP input */
-    const otpInput =
-      document.querySelector('[name="otp_code"]');
 
     if (otpInput) {
-
       otpInput.value = "";
 
-      otpInput.dispatchEvent(
-        new Event("input", { bubbles: true })
-      );
-
-      otpInput.dispatchEvent(
-        new Event("change", { bubbles: true })
-      );
+      otpInput.dispatchEvent(new Event("input", { bubbles: true }));
+      otpInput.dispatchEvent(new Event("change", { bubbles: true }));
     }
-
-    /* Clear error/success message */
-    const errorField =
-      document.querySelector('[name="success_failure_msg"]');
 
     if (errorField) {
-
       errorField.value = "";
 
-      errorField.dispatchEvent(
-        new Event("input", { bubbles: true })
-      );
+      errorField.dispatchEvent(new Event("input", { bubbles: true }));
+      errorField.dispatchEvent(new Event("change", { bubbles: true }));
 
-      errorField.dispatchEvent(
-        new Event("change", { bubbles: true })
-      );
+      const errorWrapper =
+        errorField.closest(".field-wrapper") ||
+        errorField.closest("div");
+
+      if (errorWrapper) {
+        errorWrapper.style.display = "none";
+      }
     }
 
-    /* Generate OTP again */
     generateOTP();
 
     console.log("OTP resent");
@@ -591,9 +571,7 @@ function resendOTP() {
     return "";
 
   } catch (e) {
-
     console.error("resendOTP Error:", e);
-
     return "";
   }
 }
