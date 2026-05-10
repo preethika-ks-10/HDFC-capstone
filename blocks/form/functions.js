@@ -496,39 +496,108 @@ function validateOTP(globals) {
 }
 /* =====================
    RESEND OTP
-   Call in AEM rule: resendOTP(scope)
 ===================== */
 
 function resendOTP() {
+
   try {
+
     if (window.otpResendAttempts === undefined) {
       window.otpResendAttempts = 3;
     }
 
+    /* Max attempts */
     if (window.otpResendAttempts <= 0) {
-      console.error("Maximum resend attempts reached");
+
+      const errorField =
+        document.querySelector('[name="success_failure_msg"]');
+
+      if (errorField) {
+
+        errorField.value = "Maximum resend attempts reached";
+
+        errorField.dispatchEvent(
+          new Event("input", { bubbles: true })
+        );
+
+        errorField.dispatchEvent(
+          new Event("change", { bubbles: true })
+        );
+      }
+
       return "";
     }
 
+    /* Decrease attempts */
     window.otpResendAttempts--;
 
-    console.log(window.otpResendAttempts + "/3 resend(s) left");
+    /* Update attempts text */
+    const attemptsField =
+      document.querySelector('[name="otp_attempts_left"]');
 
-    const otpInput = document.querySelector('[name="otp_code"]');
-    if (otpInput) {
-      otpInput.value = "";
-      otpInput.dispatchEvent(new Event("input", { bubbles: true }));
-      otpInput.dispatchEvent(new Event("change", { bubbles: true }));
+    if (attemptsField) {
+
+      attemptsField.value =
+        window.otpResendAttempts + "/3 resend(s) left";
+
+      attemptsField.dispatchEvent(
+        new Event("input", { bubbles: true })
+      );
+
+      attemptsField.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
     }
 
+    /* Clear OTP input */
+    const otpInput =
+      document.querySelector('[name="otp_code"]');
+
+    if (otpInput) {
+
+      otpInput.value = "";
+
+      otpInput.dispatchEvent(
+        new Event("input", { bubbles: true })
+      );
+
+      otpInput.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
+    }
+
+    /* Clear error/success message */
+    const errorField =
+      document.querySelector('[name="success_failure_msg"]');
+
+    if (errorField) {
+
+      errorField.value = "";
+
+      errorField.dispatchEvent(
+        new Event("input", { bubbles: true })
+      );
+
+      errorField.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
+    }
+
+    /* Generate OTP again */
     generateOTP();
 
+    console.log("OTP resent");
+
     return "";
+
   } catch (e) {
+
     console.error("resendOTP Error:", e);
+
     return "";
   }
 }
+
 /**
  * Fetch Review Details
  * @param {scope} globals
